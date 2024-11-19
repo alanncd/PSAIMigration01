@@ -484,19 +484,19 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>Lead.Left_Main__Business_Account</recordType>
+        <recordType>Lead.Business_Account</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Lead.Left_Main__Homeowner</recordType>
+        <recordType>Lead.Homeowner</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Lead.Left_Main__Prospect</recordType>
+        <recordType>Lead.Prospect</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Opportunity.Left_Main__Opportunity</recordType>
+        <recordType>Opportunity.Opportunity</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>

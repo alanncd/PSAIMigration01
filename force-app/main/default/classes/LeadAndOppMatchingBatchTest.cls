@@ -17,14 +17,14 @@ public class LeadAndOppMatchingBatchTest {
         orgDefaults.Lead_Record_Types__c = leadRecordTypes.get('Business_Account').getRecordTypeId();
         orgDefaults.Lead_Record_Types__c += ', ' + leadRecordTypes.get('Homeowner').getRecordTypeId();
         orgDefaults.Lead_History_Duration__c = 90;
-        orgDefaults.Matched_Lead_Reason_Field__c = 'Left_Main__Unqualified_Reason__c';
+        orgDefaults.Matched_Lead_Reason_Field__c = 'Unqualified_Reason__c';
         orgDefaults.Matched_Lead_Reason__c = 'Already sold (Other Investor)';
         orgDefaults.Matched_Lead_Status__c = 'Closed - Not Converted';
         Map<String, Schema.RecordTypeInfo> oppRecordTypes = Schema.SObjectType.Opportunity.getRecordTypeInfosByDeveloperName();
         orgDefaults.Opportunity_Record_Types__c = oppRecordTypes.get('Opportunity').getRecordTypeId();
         orgDefaults.Opportunity_History_Duration__c = 80;
         orgDefaults.Matched_Opportunity_Stage__c = 'Closed Lost';
-        orgDefaults.Matched_Opportunity_Reason_Field__c = 'Left_Main__Closed_Lost_Reason__c';
+        orgDefaults.Matched_Opportunity_Reason_Field__c = 'Closed_Lost_Reason__c';
         orgDefaults.Matched_Opportunity_Reason__c = 'Sold To Other Investor';
         orgDefaults.Opportunity_Stage__c = 'Negotiation/Review,Proposal/Price Quote,Perception Analysis,Id. Decision Makers,Value Proposition,Needs Analysis,Qualification,Prospecting';
         orgDefaults.Property_Sales_History_Duration__c = 80;
@@ -55,7 +55,7 @@ public class LeadAndOppMatchingBatchTest {
             leadsToInsert.add(lead);
 
             // Create Opportunity
-            Opportunity opp = new Opportunity(Name = 'Test Opportunity MatchesBoth' + i, AccountId = testAcc.Id, Left_Main__Last_Offer_Made__c = 234000, 
+            Opportunity opp = new Opportunity(Name = 'Test Opportunity MatchesBoth' + i, AccountId = testAcc.Id, Last_Offer_Made__c = 234000, 
             StageName = 'Prospecting', CloseDate = Date.today(), Similarity_Key__c = similarityKey);
             oppsToInsert.add(opp);
 
@@ -80,7 +80,7 @@ public class LeadAndOppMatchingBatchTest {
             String similarityKey = 'KeyT3000_' + i;
             
             // Create Opportunity
-            Opportunity opp = new Opportunity(Name = 'Test Opportunity OnlyMatchesOpp OK' + i,  AccountId = testAcc.Id, Left_Main__Last_Offer_Made__c = 234000,
+            Opportunity opp = new Opportunity(Name = 'Test Opportunity OnlyMatchesOpp OK' + i,  AccountId = testAcc.Id, Last_Offer_Made__c = 234000,
             StageName = 'Proposal/Price Quote', CloseDate = Date.today(), Similarity_Key__c = similarityKey);
             oppsToInsert.add(opp);
 

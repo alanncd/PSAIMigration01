@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Left_Main__Opportunity</fullName>
+    <fullName>Opportunity</fullName>
     <active>true</active>
-    <businessProcess>Left_Main__Opportunity Process</businessProcess>
+    <businessProcess>Opportunity Process</businessProcess>
     <description>Opportunity Record Type</description>
     <label>Opportunity</label>
     <picklistValues>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Left_Main__Prospect</fullName>
+    <fullName>Prospect</fullName>
     <active>true</active>
-    <businessProcess>Left_Main__Lead Process</businessProcess>
-    <compactLayoutAssignment>Left_Main__Left_Main_Compact_Layout</compactLayoutAssignment>
+    <businessProcess>Lead Process</businessProcess>
+    <compactLayoutAssignment>Left_Main_Compact_Layout</compactLayoutAssignment>
     <label>Prospect</label>
     <picklistValues>
         <picklist>GenderIdentity</picklist>

@@ -17,7 +17,7 @@ private class PropertySalesControllerTest {
 
             Opportunity_Address_PostalCode__c = '67890',
             Opportunity_Address_State__c = 'NY',
-            Opportunity_Address_Street__c = 'Left_Main__Street__c',
+            Opportunity_Address_Street__c = 'Street__c',
             Opportunity_Address_City__c = 'New York',
             Opportunity_Record_Types__c = 'OppRecordTypeId',
             Opportunity_History_Duration__c = 180,

@@ -150,8 +150,8 @@ public with sharing class LeadAndOppMatchingBatch implements Database.Batchable<
                                 opp.put(oppReasonField, oppReason);
                             }    
                         } 
-                        if (opp.Left_Main__Last_Offer_Made__c == null) {
-                            opp.Left_Main__Last_Offer_Made__c = 0;
+                        if (opp.Last_Offer_Made__c == null) {
+                            opp.Last_Offer_Made__c = 0;
                         }
     
                         oppsToUpdateMap.put(opp.Id, opp);

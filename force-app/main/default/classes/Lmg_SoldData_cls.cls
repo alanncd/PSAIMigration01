@@ -61,7 +61,7 @@ global class Lmg_SoldData_cls {
                 + '<br/>'+ e.getCause() +';'+ '<br/>'+ e.getTypeName() +';'+ '<br/>' +'Linea es: '+ e.getLineNumber(),
                 ProcessName__c  = 'LeadFuzion'
             );
-            insert transactionLog;}catch(Exception ex){System.debug('Error is'+ex);}
+            insert transactionLog;}catch(Exception ex){System.debug('Error is: '+ex);}
            
        }
             

@@ -89,13 +89,13 @@ public with sharing class LeadAndOppMatchingBatchHelper {
             List<Opportunity> opps;
             if (duration != null && duration != -1) {
                 DateTime createdDateFilter = DateTime.now().addDays(-1 * duration);
-                opps = [SELECT Id, Similarity_Key__c, Left_Main__Last_Offer_Made__c, StageName FROM Opportunity WHERE 
+                opps = [SELECT Id, Similarity_Key__c, Last_Offer_Made__c, StageName FROM Opportunity WHERE 
                     Similarity_Key__c IN :keys 
                     AND RecordTypeId IN :recordTypeIds
                     AND StageName IN :stagesOrStatuses
                     AND LastModifiedDate >= :createdDateFilter];
             } else {
-                opps = [SELECT Id, Similarity_Key__c, Left_Main__Last_Offer_Made__c, StageName FROM Opportunity WHERE 
+                opps = [SELECT Id, Similarity_Key__c, Last_Offer_Made__c, StageName FROM Opportunity WHERE 
                 Similarity_Key__c IN :keys 
                 AND RecordTypeId IN :recordTypeIds
                 AND StageName IN :stagesOrStatuses];

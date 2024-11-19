@@ -173,10 +173,10 @@
 		<name>PermissionSet</name>
 	</types>
 	<types>
-		<members>Lead.Left_Main__Business_Account</members>
-		<members>Lead.Left_Main__Homeowner</members>
-		<members>Lead.Left_Main__Prospect</members>
-		<members>Opportunity.Left_Main__Opportunity</members>
+		<members>Lead.Business_Account</members>
+		<members>Lead.Homeowner</members>
+		<members>Lead.Prospect</members>
+		<members>Opportunity.Opportunity</members>
 		<name>RecordType</name>
 	</types>
 	<version>60.0</version>
