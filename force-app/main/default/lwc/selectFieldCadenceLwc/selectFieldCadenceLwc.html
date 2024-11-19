@@ -1,0 +1,32 @@
+<template>
+   <!--lightning-card title="Select Field to Add Template" icon-name="custom:custom14"-->
+      
+         <lightning-combobox name="progress" label="Object" value={strObject} placeholder="Select obj" options={options} disabled=TRUE
+            onchange={handleChange} style="width:px;"></lightning-combobox>
+         </br>
+         <!--p>Selected value is: {value}</p-->
+   
+      <!--lightning-combobox name="progress" label="Field" value="" placeholder="Select Field" options={Options1}
+      onchange={handleChangeField} required></lightning-combobox-->
+         <select class="slds-select" onchange={handleChangeField}>
+            <option value="x">---None---</option>
+            <template for:each={selectTargetValues.data} for:item="selectOptItem">
+               <option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}>
+                  {selectOptItem.custFldlabel}
+               </option>
+            </template>
+         </select>
+         </br>
+         <p>Selected value is: {value2}</p>
+         </br>
+         <lightning-button variant="brand" label="Add Merge Field" title="Add Merge Field" onclick={handleClick} class="slds-m-left_x-small">
+         </lightning-button>
+         </br></br>
+         <lightning-input-rich-text
+         value={richValue}
+         disabled-categories="FORMAT_TEXT,FORMAT_FONT,ALIGN_TEXT,INSERT_CONTENT"
+         onblur={handleChangeRich}
+     >
+     </lightning-input-rich-text>
+   <!--/lightning-card-->
+</template>

@@ -1,0 +1,76 @@
+<template>
+    <div class="slds-box slds-theme_default slds-p-around_medium max-width slds-is-relative">
+        <lightning-layout class="configurations-layout">
+            <div class="slds-var-p-horizontal_x-large slds-var-p-top_x-small">
+                <div class="slds-p-horizontal_medium">
+                    <c-header 
+                        title={headerTitle}
+                        subtitle={headerSubtitle}
+                        icon-name={headerIcon}>
+                    </c-header>
+                    <div class="slds-var-m-vertical_large">
+                        <template lwc:if={isDefaultWizard}>
+                            <c-progress-bar progress-percentage={calculatePercentage} setup-name="Property Sales.AI"></c-progress-bar>
+                        </template>
+                        <template lwc:if={displayHistoryRecordInfo}>
+                            <c-data-summary-card property-sales-history={historyRecord}></c-data-summary-card>
+                        </template>
+                    </div>
+                </div>
+                <template lwc:if={isDefault} iterator:it={configurations}>                
+                    <lightning-layout-item size="12" key={it.value.key}
+                    class="configuration-item">
+                        <c-configuration-step 
+                            wizard-mode={wizardMode}
+                            title={it.value.title}
+                            description={it.value.description}
+                            time-to-complete={it.value.timeToComplete}
+                            sub-steps={it.value.subSteps}
+                            step-number={it.value.stepNumber}
+                            step-key={it.value.key}
+                            onnavigate={handleNavigate}>
+                        </c-configuration-step>
+                        <hr class="separator slds-m-vertical_medium">
+                    </lightning-layout-item>
+                </template>
+
+                <div class="slds-p-horizontal_medium">
+                    <template lwc:if={isRecordTypePicker}>
+                        <c-record-type-picker
+                            object-api-name={stepKey}
+                            onsave={handleSave}
+                            oncancel={handleBack}>
+                        </c-record-type-picker>
+                    </template>
+
+                    <template lwc:if={isStatusMultiPicker}>
+                        <c-status-picker
+                            object-api-name={stepKey}
+                            onsave={handleSave}
+                            oncancel={handleBack}>
+                        </c-status-picker>
+                    </template>        
+
+                    <template lwc:if={isScheduleMatching}>
+                        <c-matching-logic-scheduling
+                            onsave={handleSave}
+                            oncancel={handleBack}>
+                        </c-matching-logic-scheduling>
+                    </template>
+
+                    <template lwc:if={isConfigureMapping}>
+                        <c-address-fields-picker
+                            object-api-name={stepKey}
+                            onsave={handleSave}
+                            oncancel={handleBack}>
+                        </c-address-fields-picker>
+                    </template>
+                    <div lwc:if={isDefaultWizard} class="slds-var-m-top_x-large slds-grid slds-grid_align-end">
+                        <lightning-button disabled={disabled} label="Run Property Sales.AI Now" variant="brand" onclick={handleScheduleMatchingLogic}></lightning-button>
+                    </div>
+                </div>
+            </div>
+        </lightning-layout>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading..."></lightning-spinner>
+    </div>
+</template>

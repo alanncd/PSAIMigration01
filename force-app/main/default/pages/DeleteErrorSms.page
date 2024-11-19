@@ -1,0 +1,13 @@
+<apex:page standardController="LMR_SmsError__c" recordSetVar="records" lightningStylesheets="true" showHeader="false" standardStylesheets="true"
+           sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" extensions="deleteErrorHandler">
+<script>
+    onload = function() {
+        myMethod();
+    }
+</script>
+    
+    <apex:form >
+    <apex:actionFunction name="myMethod" action="{!deleteErrorSms}" rerender="div1">
+    </apex:actionFunction>
+</apex:form>    
+</apex:page>

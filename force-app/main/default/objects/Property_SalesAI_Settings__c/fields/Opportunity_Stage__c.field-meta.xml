@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Stage__c</fullName>
+    <description>To define the scope of Opportunities to query, this is the 1 or more Opportunity Stage(s) to include. A comma separated list of Opportunity.StageName picklist values</description>
+    <externalId>false</externalId>
+    <label>Opportunity Stage</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

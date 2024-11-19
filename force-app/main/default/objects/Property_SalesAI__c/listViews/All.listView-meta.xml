@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Property_Address__c</columns>
+    <columns>County__c</columns>
+    <columns>Recording_Date__c</columns>
+    <columns>Estimated_Value__c</columns>
+    <columns>Sales_Price__c</columns>
+    <columns>Taxed_Assessed_Value__c</columns>
+    <columns>Seller_First_Name__c</columns>
+    <columns>Seller_Last_Name__c</columns>
+    <columns>Buyer_First_Name__c</columns>
+    <columns>Buyer_Last_Name__c</columns>
+    <columns>Buyer_Mailing_Address__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Similarity_Key__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

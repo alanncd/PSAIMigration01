@@ -1,0 +1,100 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" standardController="Lead" recordSetVar="leads"
+    extensions="SendLeadEmailController">
+    <apex:slds />
+    <apex:form id="form" styleClass="slds-scope">
+        <!--Mail trigger form section -->
+        <apex:outputPanel rendered="{!!showSuccess}">
+            <div class="slds-grid slds-gutters slds-wrap slds-m-top_large ">
+                <div class="slds-col slds-size_3-of-12">
+                </div>
+                <div class="slds-col slds-size_6-of-12 ">
+                    <article class="slds-card slds-m-top_large">
+                        <h2 class="slds-section-title--divider">
+                            <b>Email details</b>
+                        </h2>
+
+                        <div class="slds-form slds-form-element">
+                            <br/>
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label">
+                                    <abbr class="slds-required" title="required">* </abbr>Selected Leads</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-scrollable_y" style="height:4rem;width:30.5rem">
+                                        <p>
+                                            {!leadNames}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label">
+                                    <abbr class="slds-required" title="required">* </abbr>From Email</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList size="1" value="{!owdEmailId}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!OwdEmails}" />
+
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label">
+                                    <abbr class="slds-required" title="required">* </abbr>Email templates</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList size="1" value="{!templateId}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!LeadTemplates}" />
+                                            <apex:actionSupport event="onclick" action="{!changeTemplateBody}" rerender="templateBody" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="horizontal-input-id-02">
+                                    <abbr class="slds-required" title="required">* </abbr>Email Body</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-scrollable_y" style="height:6rem;width:30.5rem">
+                                        <apex:outputpanel id="templateBody">
+                                            <apex:outputText value="{!templateBody}" /></apex:outputpanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div align="center" draggable="false">
+                            <apex:commandButton styleClass="slds-button slds-button_brand" value="Send" action="{!sendEmail}" />
+                        </div>
+                        <br/>`
+                    </article>
+                </div>
+                <div class="slds-col slds-size_3-of-12">
+                </div>
+            </div>
+        </apex:outputPanel>
+        <!--Success or failure message display section -->
+        <apex:outputPanel rendered="{!showSuccess}">
+            <section id="success-msg-section">
+                <apex:outputPanel rendered="{!!isError}">
+                    <p class="slds-align_absolute-center" style="font-size: 140px;color: #3c993c;"> &#10003;</p>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!isError}">
+                    <p class="slds-align_absolute-center" style="font-size: 140px;color: #ae2e2e;"> &times;</p>
+                </apex:outputPanel>
+
+                <h1 class="slds-align_absolute-center" style="color:#1a1f71; font-size: 1.999rem;">
+                    {!toastTitle}
+                    <br/>
+                </h1>
+                <h3 class="slds-align_absolute-center" style="color:#5c5c5c;font-size: 1rem;">{!toastMessage}</h3>
+                <apex:outputPanel rendered="{!goback}">
+                    <div align="center" draggable="false">
+                        <apex:commandButton styleClass="slds-button slds-button_brand" value="Go Back" action="{!goBackAction}" />
+                    </div>
+                </apex:outputPanel>
+            </section>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

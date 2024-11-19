@@ -1,0 +1,16 @@
+.THIS .slds-dropdown{
+    position: relative;
+}
+
+.custom-class{
+    position: relative;
+    overflow: auto;
+  }
+
+.slds-listbox{
+    position: relative;
+}
+
+.THIS .slds-modal__content{
+  overflow: initial;
+}

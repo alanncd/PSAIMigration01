@@ -1,0 +1,86 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global"
+    controller="CustomWelcomeMatController">
+    <aura:attribute name="isModalOpen" type="Boolean" default="FALSE" />
+    <aura:attribute name="walktroughs" type="object[]"/>
+    
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:if isTrue="{!v.isModalOpen}">    
+    	<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="welcome-mat-49-label" class="slds-modal slds-fade-in-open slds-modal_small">
+			<div class="slds-modal__container">
+				<lightning:buttonIcon iconName="utility:close" class="slds-modal__close" size="large" variant="bare" alternativeText="Close" onclick="{! c.closeModal }"/>
+				<div class="slds-modal__header slds-modal__header_empty"></div>
+				<div class="slds-modal__content" id="welcome-mat-49-content">
+				<div class="slds-welcome-mat">
+				<div class="slds-welcome-mat__content slds-grid">
+				<div class="slds-welcome-mat__info slds-size_1-of-2">
+<div class="slds-welcome-mat__info-content">
+<h2 id="welcome-mat-49-label" class="slds-welcome-mat__info-title">Welcome to the Left Main Experience!</h2>
+<p class="slds-welcome-mat__info-description slds-text-longform">You’re going to love how Left Main boosts your productivity. Want to get ramped up quickly? Check out these tips!.</p>
+                                    <div class="slds-welcome-mat__info-progress">
+                                        <p>
+                                            <strong>Was this helpful?</strong>
+                                        </p>
+											  <div class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center slds-m-left_xx-small">
+													<div class="slds-welcome-mat__tile-icon-container">
+
+														<span class="slds-icon_container slds-icon-utility-like">
+															<!--a id="slds-welcome-mat__tile_1" href="#" class="slds-box slds-box_link slds-box_x-small slds-media slds-welcome-mat__tile"-->
+        														<lightning:icon iconName="utility:like" alternativeText="Like" title="Like" variant="success"  onclick="{! c.setLike }" />
+															<!--/a-->	
+														</span>
+													
+														<span class="slds-icon_container slds-icon-utility-dislike">
+														<!--a id="slds-welcome-mat__tile_1" href="#" class="slds-box slds-box_link slds-box_x-small slds-media slds-welcome-mat__tile"-->
+        														<lightning:icon iconName="utility:dislike" alternativeText="LikeDis" title="Like" variant="error" onclick="{! c.setDislike }" />
+														<!--/a-->																
+														</span>	
+
+													</div>
+												</div>
+                                    </div>
+    					<a href="https://www.facebook.com/groups/122374369752864"  target="_blank">
+                    		<button class="slds-button slds-button_brand">Join Our Facebook Group</button>
+                        </a>
+                     <div class="slds-checkbox">
+                                            <input type="checkbox" name="options" id="checkbox-unique-id-8" value="checkbox-unique-id-8" onchange="{! c.setModalOff }" />
+                                            <label class="slds-checkbox__label" for="checkbox-unique-id-8">
+                                              <span class="slds-checkbox_faux"></span>
+                                              <span class="slds-form-element__label">Don&#x27;t show this again</span>
+                                            </label>
+                                          </div>    
+                    </div>
+                    </div>
+<ul class="slds-welcome-mat__tiles slds-size_1-of-2">
+        <aura:iteration items="{!v.walktroughs}" var="co">
+            <li class="slds-welcome-mat__tile">
+                <a href="{!co.link}" class="slds-box slds-box_link slds-media">
+					<div class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center">
+						<div class="slds-welcome-mat__tile-figure">
+                            <div class="slds-welcome-mat__tile-icon-container">
+                                <span class="slds-icon_container slds-icon-utility-video">
+                                    <lightning:icon iconName="{!co.icon}" alternativeText="VideoOn" title="Like" variant="success" />
+                                </span>
+                            </div>
+                     	</div>
+                    </div>
+                    <div class="slds-media__body">
+                    <div class="slds-welcome-mat__tile-body">
+                    <h3 class="slds-welcome-mat__tile-title">{!co.title}</h3>
+                    <p class="slds-welcome-mat__tile-description">{!co.description}</p>
+                    </div>
+                    </div>                    
+                </a>
+            </li>
+		</aura:iteration>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:if>        
+</aura:component>

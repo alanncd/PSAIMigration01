@@ -1,0 +1,23 @@
+<template>
+    <div class="slds-p-horizontal_medium slds-p-top_small">
+        <div class="slds-media slds-var-m-bottom_small">
+            <lightning-icon class="slds-p-top_xx-small" icon-name={icon} alternative-text="Toggle section" onclick={toggleSection} size="xx-small"></lightning-icon>
+            <c-progress-ring lwc:if={wizardMode} class="slds-m-left_small slds-p-top_xx-small"
+            label={stepNumber} fill-percent={fillPercent}></c-progress-ring>
+            <div class="slds-media__body slds-m-left_small">
+                <h1 class="bold slds-text-heading_medium">{title}</h1>
+                <p>{description}</p>
+            </div>
+            <div lwc:if={wizardMode} class="slds-media__figure slds-media__figure_reverse">
+                <p>{timeToComplete} mins</p>
+            </div>
+        </div>
+        <template lwc:if={showSection}>
+            <c-progress-indicator 
+                wizard-mode={wizardMode}
+                onbuttonclick={handleButtonClick}
+                sub-steps={subSteps}>
+            </c-progress-indicator>
+        </template>
+    </div>
+</template>

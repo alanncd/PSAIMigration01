@@ -1,0 +1,10 @@
+@import "c/cssConfigurationWizard";
+
+.configurations-layout {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+.max-width {
+    max-width: 1366px;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RecordType__c</fullName>
+    <description>This is the record type name of the related lead/opportunity</description>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(Lead__r.RecordType.Name)),Lead__r.RecordType.Name,Opportunity__r.RecordType.Name)</formula>
+    <label>RecordType</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,38 @@
+<template>
+    <div class="slds-p-left_xx-large slds-progress slds-progress_vertical">
+        <ol class="slds-progress__list">
+            <template lwc:if={wizardMode} for:each={subSteps} for:item="step">
+                <li class={step.cssClass} key={step.label}>
+                    <template lwc:if={step.isFullyCompleted}>
+                        <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Complete">
+                            <lightning-icon class="green-icon" icon-name="utility:success" alternative-text="Success" size="xx-small"></lightning-icon>
+                        </span>
+                    </template>
+                    <template lwc:else>
+                        <div class="slds-progress__marker"></div>
+                    </template>
+                    <div class="slds-progress__item_content slds-grid slds-grid_align-spread slds-border_bottom ">
+                        <span class="slds-text-body_regular">{step.label}</span>
+                        <lightning-button label={step.buttonLabel} 
+                            value={step.actionKey}
+                            onclick={handleButtonClick} 
+                            variant="neutral" 
+                            class="slds-button_neutral"></lightning-button>
+                    </div>
+                </li>
+            </template>
+            <template lwc:else for:each={subSteps} for:item="step">
+                <li key={step.label}>
+                    <div class="slds-progress__item_content slds-grid slds-grid_align-spread slds-border_bottom ">
+                        <span class="slds-text-body_regular">{step.label}</span>
+                        <lightning-button label={step.buttonLabel} 
+                            value={step.actionKey}
+                            onclick={handleButtonClick} 
+                            variant="neutral" 
+                            class="slds-button_neutral"></lightning-button>
+                    </div>
+                </li>
+            </template>
+        </ol>
+    </div> 
+</template>

@@ -1,0 +1,156 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+    </head>
+    
+    <body>
+        <script src="https://code.jquery.com/jquery-3.5.1.js">
+        </script>
+      
+        <script src="https://www.paypal.com/sdk/js?client-id=AU0tKYNq_wRoyfRL-rTNbBZLqlA3bdWgJSCDPzOQ_giHkaVNv-OpjjNlDKsFc66ekQDa2ZaEu2IYESWB&vault=true&intent=subscription">
+</script>
+        <!--<script src="https://www.paypal.com/sdk/js?client-id=AU0tKYNq_wRoyfRL-rTNbBZLqlA3bdWgJSCDPzOQ_giHkaVNv-OpjjNlDKsFc66ekQDa2ZaEu2IYESWB">
+        </script>-->
+        <script>
+        window.$Label = window.$Label || {};
+        //$Label.customLabel= '{!($Label.User_License_Amount)}';
+        function toastLaunch(){
+            var element = document.getElementById("ToastMessage");
+            element.classList.toggle("slds-hidden");
+        }
+        paypal.Buttons({
+            onClick: function(data, actions) {
+                // My validation...
+                document.getElementById('error-paypal').style.display = 'none';
+                document.getElementById('error-paypal-terms').style.display = 'none';
+                var inputValue = document.getElementById('noOfUsers').value;
+                var termsAndConditions = document.getElementById('termsAndConditions').checked;
+                debugger;
+                // My validation Function...
+                if (inputValue === '') {
+                    document.getElementById('error-paypal').style.display = 'block';
+                    return false;
+                } 
+                else if(termsAndConditions == false){
+                    document.getElementById('error-paypal-terms').style.display = 'block';
+                    return false;
+                }
+                    else {
+                        return true;
+                    }
+            },
+            /*createOrder: function(data, actions) {
+                var rateperUser = $Label.customLabel;
+                var totalAmount = parseInt (document.getElementById('noOfUsers').value ) * parseFloat(rateperUser);
+                
+                // This function sets up the details of the transaction, including the amount and line item details.
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toString()
+                        },
+                        custom_id: '{!$Organization.Id}'
+                    }]
+                });
+            },*/
+            createSubscription: function (data, actions) {
+                return actions.subscription.create({
+                    'plan_id': 'P-4MV6997042950533DMDDU24Q',
+                    'quantity': document.getElementById('noOfUsers').value,
+                    'custom_id': '{!$Organization.Id}'
+                });
+            },
+            onApprove: function(data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function(details) {
+                    // This function shows a transaction success message to your buyer.
+                    //alert('Transaction completed by ' + details.payer.name.given_name);
+                    console.log(details);
+                    console.log('Transaction completed by ' + details.payer.name.given_name);
+                    var element = document.getElementById("ToastMessage");
+                    element.classList.toggle("slds-hidden");
+                    
+                });
+            }
+        }).render('#paypal-button-container');
+        //This function displays Smart Payment Buttons on your web page.
+        </script>
+        
+        <apex:slds />
+        
+        <div class="demo-only slds-hidden" style="height: 4rem;" id='ToastMessage'>
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_success" role="alert">
+                    <span class="slds-assistive-text">success</span>
+                    <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#success')}" />
+                        </svg>
+                    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">Your payment was successfull.</h2>
+                    </div>
+                    <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" onclick='toastLaunch()' style="top: 1.5rem">
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}" />
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="slds-grid slds-gutters slds-wrap slds-m-top_small ">
+            <div class="slds-col slds-size_3-of-12">
+            </div>   
+            <div class="slds-col slds-size_6-of-12 ">
+                <article class="slds-card slds-m-top_large">
+                    <h1 class="slds-section-title--divider"><b>Add Users</b></h1>
+                    <div class="slds-form slds-form-element">
+                        <div class="slds-form-element slds-form-element_horizontal">
+                            <label class="slds-form-element__label" for="noOfUsers">
+                                <abbr class="slds-required" title="required">* </abbr><b>Number of Users</b></label>
+                            <div class="slds-form-element__control">
+                                <input type="number" id="noOfUsers" required="true" class="slds-input" />
+                                <div id="error-paypal" style="display:none;color:red;">
+                                    Please enter number of users
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form slds-form-element">
+                        <div class="slds-form-element slds-form-element_horizontal">
+                            <div class="slds-form-element__control">
+                                <div class="slds-checkbox">
+                                    <input type="checkbox" name="options" id="termsAndConditions"/>
+                                    <label class="slds-checkbox__label" for="termsAndConditions">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label">I agree to the terms and conditions</span>
+                                    </label>
+                                </div>
+                                <div id="error-paypal-terms" style="display:none;color:red;">
+                                    Please agree to the terms and conditions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form slds-form-element">
+                        <div class="slds-form-element slds-form-element_horizontal">
+                            <div class="slds-form-element__control">
+                                <a target="_blank" href="https://betterpathhomes.my.salesforce.com/sfc/p/3i000000sMGC/a/3i000000DND3/enbWzXPM0RVwbbo7VPjkWMeaVATft0VK7JcPLJBv_ts">View Terms and Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div align="center" draggable="false" >
+                        <div id="paypal-button-container"></div>
+                    </div>
+                    <br/>
+                </article>
+            </div>  
+            <div class="slds-col slds-size_3-of-12">
+            </div>  
+        </div>
+    </body>
+</apex:page>

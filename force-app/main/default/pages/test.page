@@ -1,0 +1,62 @@
+<apex:page standardStylesheets="true" showHeader="false" controller="webFormLead_ctr">
+    <apex:pageBlock title="Lead Form">
+        	<apex:form >
+                <h1>Insert Leads</h1>
+                <p>Insert here information for leads</p><br/>
+                <table>
+                    <tr>
+                        <td><h1>Personal Information: </h1></td>
+                    </tr>
+                    <tr>
+                        <td>First name: </td><td><apex:inputText value="{!FirstName}"></apex:inputText></td>
+                        <td>Last name: </td><td>
+                            <div class = "requiredInput">
+                                <div class = "requiredBlock"></div>
+                                    <apex:inputText value="{!LastName}" required="TRUE"></apex:inputText>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td><td><apex:inputText value="{!Email}"></apex:inputText></td>
+                    </tr>
+                    <tr><td>Phone: </td><td><apex:inputText value="{!Phone}"></apex:inputText></td><td>MobilePhone: </td><td><apex:inputText value="{!MobilePhone}"></apex:inputText></td></tr>
+                    
+                    <tr>
+                        <td><h1>Address:</h1> </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Street: </td><td><apex:inputText value="{!Street}"></apex:inputText></td>
+                    </tr>
+                    <tr>
+                        <td>City: </td><td><apex:inputText value="{!City}"></apex:inputText></td>
+                        <td>State: </td><td><apex:inputText value="{!State}"></apex:inputText></td>
+                    </tr>
+                    <tr>
+                        <td>Zip / Postal Code: </td><td><apex:inputText value="{!ZipCode}"></apex:inputText></td>
+                        <td>Country: </td><td><apex:inputText value="{!Country}"></apex:inputText></td>
+                    </tr>
+                    <tr>
+                        <td><h1>Other Information:</h1> </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputLabel value="Lead Source" />
+                        </td>
+                        <td>
+                            <apex:selectList value="{!leadSource}" multiselect="false" id="items" size="1">
+                                <apex:selectOptions value="{!ItemsList}" />
+                            </apex:selectList>
+                        </td>
+                    </tr>                   
+                </table>
+				<apex:inputText rendered="false" value="{!RecordType}"></apex:inputText>
+                <apex:commandButton action="{!save}" value="Save New Lead"/>
+      		</apex:form>
+        </apex:pageBlock>
+</apex:page>

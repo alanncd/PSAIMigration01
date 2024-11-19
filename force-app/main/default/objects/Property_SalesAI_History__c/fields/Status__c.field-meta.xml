@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Processing</fullName>
+                <default>false</default>
+                <label>Processing</label>
+            </value>
+            <value>
+                <fullName>Finished Successfully</fullName>
+                <default>false</default>
+                <label>Finished Successfully</label>
+            </value>
+            <value>
+                <fullName>Finished With Errors</fullName>
+                <default>false</default>
+                <label>Finished With Errors</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

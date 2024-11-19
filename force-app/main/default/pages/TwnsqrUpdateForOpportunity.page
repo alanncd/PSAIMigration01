@@ -1,0 +1,7 @@
+<apex:page standardController="Opportunity" extensions="TwnsqrUpdateForOpportunityCntrl">
+
+    <head>
+        <apex:slds />
+    </head>
+    <c:TwnsqrUpdateCmp recId="{!opportunityRecord.Id}" objName="Opportunity"/>
+</apex:page>

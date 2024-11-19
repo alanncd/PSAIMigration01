@@ -1,0 +1,23 @@
+.THIS .paddingCls {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.THIS .helpText .slds-form-element__icon {
+    margin-top: -5px;
+}
+.THIS .vendorblock {
+    height:270.5px;
+}
+
+.THIS .header-column {
+    position: relative; /* This allows you to position elements within it absolutely */
+    height: 100px; /* Set the height as needed */
+    border: 1px solid #ccc; /* Optional: shows the border of the div */
+}
+.THIS .center-button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the button */
+    width: auto;
+}

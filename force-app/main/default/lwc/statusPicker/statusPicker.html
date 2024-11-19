@@ -1,0 +1,75 @@
+<template>
+    <p class="slds-var-m-bottom_medium">{header}</p>
+
+    <!-- Loading spinner -->
+    <lightning-spinner lwc:if={loading} alternative-text="Loading statuses..."></lightning-spinner>
+
+    <!-- Datatable for statuses with programmatic row selection -->
+    <lightning-datatable
+        data-id="statusTable"
+        key-field="value"
+        data={statuses}
+        columns={columns}
+        selected-rows={selectedStatusIds}
+        onrowselection={handleRowSelection}>
+    </lightning-datatable>
+
+    <div class="slds-m-top_medium">
+        <label class="custom-combobox-label slds-form-element__label bold">{statusLabel}</label>
+        <lightning-combobox
+            class={comboboxClass}
+            variant="label-hidden"
+            placeholder="Select Status"
+            options={filteredStatuses}
+            value={selectedStatus}
+            onchange={handleStatusChange}
+            onfocus={refreshFilteredStatuses}>
+        </lightning-combobox>
+    </div>
+    <div lwc:if={isError} class="slds-has-error red slds-form-element__help">
+        {comboboxError}
+    </div>
+    
+    <div class="slds-m-top_medium">
+        <label class="custom-combobox-label slds-form-element__label bold">{fieldLabel}</label>
+        <c-dynamic-combo-box
+            variant="label-hidden"
+            data-id="reasonField"
+            placeholder="Search Field..."
+            options={fieldOptions}
+            selected-value={selectedField}
+            selected-label={selectedFieldLabel}  
+            onselectoption={handleSelectOption}
+        ></c-dynamic-combo-box>
+    </div>
+    
+    <template lwc:if={isText}>
+        <div class="slds-m-top_medium">
+            <label class="custom-combobox-label slds-form-element__label bold">{reasonLabel}</label>
+            <lightning-input
+                variant="label-hidden"
+                placeholder="Reason"
+                value={reason}
+                onchange={handleReasonChange}>
+            </lightning-input>
+        </div>
+    </template>
+    <template lwc:if={isPicklist}>
+        <div class="slds-m-top_medium">
+            <label class="custom-combobox-label slds-form-element__label bold">{reasonLabel}</label>
+            <lightning-combobox
+                variant="label-hidden"
+                placeholder="Select Reason"
+                options={picklistValues}
+                value={reason}
+                onchange={handleReasonChange}>
+            </lightning-combobox>
+        </div>
+    </template>
+
+    <!-- Save and Cancel Buttons -->
+    <div class="slds-m-top_medium slds-grid slds-grid_align-end">
+        <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+        <lightning-button label="Save" variant="brand" class="slds-m-left_small" onclick={handleSave}></lightning-button>
+    </div>
+</template>

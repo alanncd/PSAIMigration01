@@ -1,0 +1,65 @@
+<apex:page standardController="Lead" recordSetVar="leads" extensions="TwnsqrForLeadCtrl" action="{!getTwnsqrUpdate}">
+	<apex:slds />
+    <style>
+        .spinnerBg{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: #000;
+        opacity: 0.2;
+        z-index: 999999;
+        }
+        .spinner{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-image: url("/img/loading32.gif");
+        background-size: 25px;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        z-index: 9999999;
+        opacity: 1;
+        }
+    </style>
+    <apex:actionStatus id="spinnerStatus">
+        <apex:facet name="start">
+            <div class="spinnerBg" />
+            <div class="spinner" />
+        </apex:facet>
+    </apex:actionStatus>
+    <apex:form id="frm">
+        <apex:outputPanel rendered="{!showToast}" id="ToastMessage">
+            <div class="demo-only" style="height: 4rem;position:absolute;margin-left: 35%;" >
+                <div class="slds-notify_container slds-is-relative">
+                    <apex:outputPanel rendered="{!If(errorMsg != 'Records Updated Successfully.',true,false)}">
+                        <div class="slds-notify slds-notify_toast slds-theme_error" role="alert" 
+                            style="min-width: 2%;margin-top: 11%;margin-left: -6%;opacity: 0.9;" >
+                            <apex:image url="{!$Resource.ErrorIcon}" width="20" height="20" style="margin-left: -5%;"/>
+                            <div class="slds-notify__content" style="padding-left: 5%;min-width: 87%;">
+                                <h2 class="slds-text-heading_small ">{!errorMsg}</h2>
+                            </div>
+    
+                            <apex:actionFunction name="hideToastMsg" action="{! hideToast }" reRender="frm" status="spinnerStatus"/>
+                            <apex:image url="{!$Resource.CloseIcon}" width="30" height="30"
+                                            onclick="hideToastMsg();" style="margin-left: 14%;"/>  
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!If(errorMsg == 'Records Updated Successfully.',true,false)}">
+                        <div class="slds-notify slds-notify_toast slds-theme_success" role="alert" 
+                            style="min-width: 2%;margin-top: 11%;margin-left: -6%;opacity: 0.9;" >
+                            <apex:image url="{!$Resource.SuccessIcon}" width="20" height="20" style="margin-left: -5%;"/>
+                            <div class="slds-notify__content" style="padding-left: 5%;min-width: 87%;">
+                                <h2 class="slds-text-heading_small ">{!errorMsg}</h2>
+                            </div>
+    
+                            <apex:actionFunction name="hideToastMsg" action="{! hideToast }" reRender="frm" status="spinnerStatus"/>
+                            <apex:image url="{!$Resource.CloseIcon}" width="30" height="30"
+                                            onclick="hideToastMsg();" style="margin-left: 14%;"/>  
+                        </div>
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

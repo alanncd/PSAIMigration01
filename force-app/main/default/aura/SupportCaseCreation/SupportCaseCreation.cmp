@@ -1,0 +1,277 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global"
+    controller="SupportCaseCreationController">
+
+    <aura:attribute name="simpleNewCase" type="Object" />
+    <aura:attribute name="showInput" type="Boolean" default="true" />
+    <aura:attribute name="isError" type="Boolean" default="false" />
+    <aura:attribute name="toastTitle" type="String" default="Thank you for contacting support" />
+    <aura:attribute name="toastMessage" type="String" />
+
+    <aura:attribute name="displaySpinner" type="Boolean" default="false" />
+    <aura:attribute name="accManagerInfo" type="Object" />
+    <aura:attribute name="myCases" type="object[]" />
+    <aura:attribute name="myCaseComents" type="object[]" />
+    <aura:attribute name="mycolumns" type="List" />
+    <aura:attribute name="columnsComments" type="List" />
+    <aura:attribute name="isModalOpen" type="Boolean" default="false" />
+
+    <!-- Container to render the message -->
+    <!-- <div aura:id="toastMessage">
+        <aura:unescapedHtml value="{!v.toastMessage}" />
+    </div> -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <div class="slds-grid slds-gutters slds-wrap slds-m-top_large ">
+        <div class="slds-col slds-size_6-of-12 ">
+            <!-- Card Account Manager Info-->
+            <lightning:card variant="Narrow" title="Account Manager" iconName="utility:identity">
+                <p class="slds-p-horizontal_small">
+                    Account Manager: {!v.accManagerInfo.name}<br />
+                    Email: {!v.accManagerInfo.email}<br />
+                    Phone: {!v.accManagerInfo.phone}<br />
+                </p>
+            </lightning:card>
+        </div>
+        <div class="slds-col slds-size_6-of-12 ">
+            <!-- Card Support Info-->
+            <lightning:card variant="Narrow" title="Live Support Info" iconName="utility:answered_twice">
+                <p class="slds-p-horizontal_small">
+                    Time: Monday - Friday 11AM - 5PM EST<br />
+                    Phone Number: 1-704-368-4333<br />
+                    <b>Learn more at <a href="https://www.leftmainacademy.com/" target="_blank">
+                            LeftMainAcademy.com</a></b><br />
+                </p>
+            </lightning:card>
+        </div>
+    </div>
+    <!-- Tabs -->
+    <lightning:tabset selectedTabId="one">
+        <lightning:tab label="Create Case" id="one">
+            <aura:if isTrue="{!v.displaySpinner}">
+                <lightning:spinner alternativeText="Loading" size="large" />
+            </aura:if>
+            <lightning:card>
+                <!--From to input a new case-->
+                <aura:if isTrue="{!v.showInput}">
+                    <div class="slds-grid slds-gutters slds-wrap slds-m-top_large ">
+                        <div class="slds-col slds-size_3-of-12">
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 ">
+
+                            <article class="slds-card slds-m-top_large">
+
+                                <h1 class="slds-section-title--divider"><b>New Case Details</b></h1>
+
+                                <div class="slds-form slds-form-element">
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <br />
+                                        <label class="slds-form-element__label" for="name">
+                                            <abbr class="slds-required" title="required">* </abbr>Name</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="name" label="Name" variant="label-hidden"
+                                                aura:id="case" value="{!v.simpleNewCase.name}" required="true" />
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-form-element slds-form-element_horizontal">
+
+                                        <label class="slds-form-element__label" for="phone">
+                                            <abbr class="slds-required" title="required">* </abbr>Phone</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="Phone" label="Phone" variant="label-hidden"
+                                                aura:id="case" type="text" maxlength="12" pattern="^[0-9]*$"
+                                                messageWhenPatternMismatch="You have entered an invalid Phone."
+                                                value="{!v.simpleNewCase.phone}" required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element slds-form-element_horizontal ">
+                                        <label class="slds-form-element__label slds-m-left_medium"
+                                            for="horizontal-input-id-03">
+                                            Email</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="Email" type="email" label="Email" aura:id="case"
+                                                variant="label-hidden"
+                                                messageWhenTypeMismatch="You have entered an invalid Email."
+                                                value="{!v.simpleNewCase.email}" />
+                                        </div>
+                                    </div>
+                                    <!---->
+                                    <div class="slds-form-element slds-form-element_horizontal ">
+                                        <label class="slds-form-element__label" for="name">
+                                            <abbr class="slds-required" title="required">* </abbr>Collaborator</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="name" label="Collaborator" variant="label-hidden"
+                                                aura:id="case" value="{!v.simpleNewCase.collaborator}"
+                                                messageWhenValueMissing="Please, provide contact details for a case collaborator to help expedite your case."
+                                                required="true" />
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element slds-form-element_horizontal ">
+                                        <label class="slds-form-element__label slds-m-left_medium"
+                                            for="horizontal-input-id-03">
+                                            Collaborator Phone</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="CollaboratorPhone" label="Collaborator Phone"
+                                                variant="label-hidden" aura:id="case" type="text" maxlength="12"
+                                                pattern="^[0-9]*$"
+                                                messageWhenPatternMismatch="You have entered an invalid Phone."
+                                                value="{!v.simpleNewCase.collaboratorPhone}" />
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element slds-form-element_horizontal ">
+                                        <label class="slds-form-element__label slds-m-left_medium"
+                                            for="horizontal-input-id-03">
+                                            Collaborator Email</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="CollaboratorEmail" type="email"
+                                                label="Collaborator Email" aura:id="case" variant="label-hidden"
+                                                messageWhenTypeMismatch="You have entered an invalid Email."
+                                                value="{!v.simpleNewCase.collaboratorEmail}" />
+                                        </div>
+                                    </div>
+                                    <!---->
+                                    <div class="slds-form-element slds-form-element_horizontal">
+
+                                        <label class="slds-form-element__label" for="Subject">
+                                            <abbr class="slds-required" title="required">* </abbr>Subject</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="Subject" label="Subject" variant="label-hidden"
+                                                aura:id="case" value="{!v.simpleNewCase.subject}" required="true" />
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <label class="slds-form-element__label" for="ticketType">
+                                            <abbr class="slds-required" title="required">* </abbr>Ticket Type</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:select aura:id="ticketType" name="ticketType"
+                                                onchange="{! c.onChange }">
+                                                <option value="">--Select One--</option>
+                                                <option value="Adding Fields">Adding Fields</option>
+                                                <option value="Dashboards and Reports">Dashboards and Reports</option>
+                                                <option value="DocuSign">DocuSign</option>
+                                                <option value="Importing">Importing</option>
+                                                <option value="Integrations">Integrations</option>
+                                                <option value="Layout Changes">Layout Changes</option>
+                                                <option value="Mapping">Mapping</option>
+                                                <option value="Missing Features">Missing Features</option>
+                                                <option value="Professional Services">Professional Services</option>
+                                                <option value="Other">Other</option>
+                                            </lightning:select>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <label class="slds-form-element__label" for="Description">
+                                            <abbr class="slds-required" title="required">* </abbr>Description</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="Description" label="Description"
+                                                variant="label-hidden" aura:id="case"
+                                                value="{!v.simpleNewCase.description}" required="true" />
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <label class="slds-form-element__label" for="Description">
+                                            Credentials (required for DocuSign or imports)</label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:input name="Credentials" label="Credentials"
+                                                variant="label-hidden" aura:id="case"
+                                                value="{!v.simpleNewCase.credentials}" />
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <label class="slds-form-element__label slds-m-left_medium"
+                                            for="horizontal-input-id-03">
+                                            Attachment Link
+                                        </label>
+                                        <div class="slds-form-element__control">
+                                            <lightning:textarea id="AttachmentLink" styleClass="slds-textarea"
+                                                value="{!v.simpleNewCase.attachmentLink}" />
+                                        </div>
+                                        <br />
+                                        <label style="color: #484848;">Note : Only add public link in attachment link
+                                            section
+                                            for
+                                            example,Loom Video Link,Lightshot screenshot link.</label>
+                                        <br />
+                                        <label style="color: #484848;">Note : Please ensure mandatory fields are
+                                            filled.</label>
+                                    </div>
+                                </div>
+                                <div align="center" draggable="false">
+                                    <lightning:button variant="brand" label="Submit" title="Brand action"
+                                        onclick="{! c.handleClick }" />
+                                </div>
+                                <br />
+
+                            </article>
+                        </div>
+
+                        <div class="slds-col slds-size_3-of-12">
+                        </div>
+                    </div>
+                    <aura:set attribute="else">
+                        <div title="Thank you">
+                            <section id="success-msg-section">
+                                <div title="Thank you">
+                                    <aura:if isTrue="{!v.isError}">
+                                        <p class="slds-align_absolute-center" style="font-size: 140px;color: #ae2e2e;">
+                                            &times;
+                                        </p>
+                                    </aura:if>
+                                    <aura:set attribute="else">
+                                        <p class="slds-align_absolute-center" style="font-size: 140px;color: #3c993c;">
+                                            &#10003;
+                                        </p>
+                                    </aura:set>
+                                </div>
+                                <h1 class="slds-align_absolute-center" style="color:#1a1f71; font-size: 1.999rem;">
+                                    {!v.toastTitle}
+                                    <br />
+                                </h1>
+                                <h3 class="slds-align_absolute-center" style="color:#5c5c5c;font-size: 1rem;">
+                                    <aura:unescapedHtml value="{!v.toastMessage}" />
+                                </h3>
+                                <h3 class="slds-align_absolute-center" style="color:#5c5c5c;font-size: 1rem;">
+                                        <a href='https://scribehow.com/shared/How_To_Grant_Left_Main_Access_To_Your_Org__BhiOgFxQS2ejIro5ywervg?referrer=search' target='_blank'>How To Grant Left Main Access</a>
+                                </h3>                                
+                            </section>
+                        </div>
+                    </aura:set>
+                </aura:if>
+            </lightning:card>
+        </lightning:tab>
+        <lightning:tab label="My Cases" id="two">
+            <lightning:button variant="brand" label="View Open Cases" title="View Open Cases"
+                onclick="{! c.searchClick }" />
+            <lightning:button variant="brand" label="View Closed Cases" title="View Closed Cases"
+                onclick="{! c.searchClickClosed }" />
+            <lightning:datatable data="{! v.myCases }" columns="{! v.mycolumns }" keyField="id"
+                hideCheckboxColumn="true" onrowaction="{! c.handleRowAction }" wrapTextMaxLines="4" />
+            <!--Modal with information of Case Comments-->
+            <aura:if isTrue="{!v.isModalOpen}">
+                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small"
+                    aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick="{!c.closeModal}">
+                                <lightning:icon iconName="utility:close"></lightning:icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Case Comments</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="row">
+                                <lightning:datatable data="{! v.myCaseComents }" columns="{! v.columnsComments }"
+                                    keyField="id" hideCheckboxColumn="true" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </aura:if>
+        </lightning:tab>
+    </lightning:tabset>
+</aura:component>

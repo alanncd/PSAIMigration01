@@ -1,0 +1,66 @@
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global" controller="QuickBooksController">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="title" type="String" default="Quick Books" />
+    <aura:attribute name="refreshTitle" type="String" default="Vendor Refresh" />
+    <aura:attribute name="accesstoken" type="String" />
+    <aura:attribute name="options" type="List" access="PRIVATE" />
+    <aura:attribute name="selectedValue" type="String" access="PRIVATE" />
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="6">
+            <lightning:card>
+                <lightning:spinner aura:id="spinner1" alternativeText="Processing.." size="large" class="slds-hide" />
+                <aura:set attribute="title">
+                    <lightning:icon iconName="utility:connected_apps" size="small" />
+                    {! v.title }
+                </aura:set>
+                <br />
+                <!-- <div style="width: 27%;margin-left: 35%;"> -->
+                <div class="slds-page-header">
+                    <p class="slds-text-heading--label">Click this button to fetch data from QuickBooks to Salesforce.
+                    </p>
+                </div>
+                <div class="header-column paddingCls" padding="around-medium">
+                    <lightning:select name="Days" label="Select Days:" aura:id="select" onchange="{!c.onChange}"
+                        value="{!v.selectedValue}">
+                        <aura:iteration items="{!v.options}" var="option">
+                            <option text="{!option.label}" value="{!option.id}" selected="{!option.selected}" />
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+
+                <center style="margin-top: 10px;">
+                    <lightning:button variant="brand" label="Get Records" title="Brand action"
+                        onclick="{!c.getRecords }" />
+                </center>
+            </lightning:card>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="6">
+            <lightning:card class="vendorblock">
+                <lightning:spinner aura:id="spinner1" alternativeText="Processing.." size="large" class="slds-hide" />
+                <aura:set attribute="title">
+                    <lightning:icon iconName="utility:connected_apps" size="small" />
+                    {! v.refreshTitle }
+                </aura:set>
+                <br />
+                <!-- <div style="width: 27%;margin-left: 35%;"> -->
+                <div class="slds-page-header">
+                    <p class="slds-text-heading--label">Click this button to refresh the Lead #, Opportunity # and
+                        Transaction #</p>
+                </div>
+                <div class="header-column">
+                    <br />
+                </div>
+
+                <center style="margin-top: 10px;">
+
+                    <lightning:button variant="brand" label="Refresh Records" title="Refresh Vendor's fields count"
+                        onclick="{!c.refreshData }" />
+                </center>
+            </lightning:card>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

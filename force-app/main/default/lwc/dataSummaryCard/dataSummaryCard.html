@@ -1,0 +1,28 @@
+<template>
+    <div class={backgroundClasses} role="status">
+        <div class="slds-media">
+            <div class="slds-media__figure slds-align_absolute-center">
+                <lightning-icon icon-name={iconName} variant={iconVariant} asize="small" ></lightning-icon>
+            </div>
+            <div class="slds-media__body">
+                <p class={textClasses}>Last Batch Completed:&nbsp;  
+                    <lightning-formatted-date-time value={finishTime} year="numeric" month="short" day="numeric">
+                    </lightning-formatted-date-time>
+                    &nbsp;at&nbsp;
+                    <lightning-formatted-date-time value={finishTime} hour="2-digit" minute="2-digit" second="2-digit">
+                    </lightning-formatted-date-time>
+                </p>
+                <p class={textClasses}>Matched Leads: {propertySalesHistory.Matched_Leads__c}</p>
+                <p class={textClasses}>Matched Opportunities: {propertySalesHistory.Matched_Opportunities__c}</p>
+
+                <!-- Show error message if status contains "error" -->
+                <template lwc:if={hasError}>
+                    <p class={textClasses}>{errorMessage}</p>
+                </template>
+            </div>
+            <div class="slds-media__figure slds-align_absolute-center">
+                <a class={textClasses} onclick={handleSeeDetails}>See Details</a>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,131 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" controller="CaseCreationController">
+    <apex:slds />
+    <!--Case date entry form section -->
+    <apex:outputPanel rendered="{!!showSuccess}">
+        <div class="slds-grid slds-gutters slds-wrap slds-m-top_large ">
+            <div class="slds-col slds-size_3-of-12">
+            </div>
+
+            <div class="slds-col slds-size_6-of-12 ">
+
+                <article class="slds-card slds-m-top_large">
+
+
+                    <h1 class="slds-section-title--divider">
+                        <b>New Case Details</b>
+                    </h1>
+
+
+                    <apex:form id="form" styleClass="slds-scope">
+                        <div class="slds-form slds-form-element">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <br/>
+                                <label class="slds-form-element__label" for="name">
+                                    <abbr class="slds-required" title="required">* </abbr>Name</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputtext value="{!name}" id="name" required="true" styleClass="slds-input" />
+
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+
+                                <label class="slds-form-element__label" for="phone">
+                                    <abbr class="slds-required" title="required">* </abbr>Phone</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputtext value="{!phone}" id="phone" required="true" styleClass="slds-input" />
+
+                                </div>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal ">
+                                <label class="slds-form-element__label slds-m-left_medium" for="horizontal-input-id-03"> Email</label>
+                                <div class="slds-form-element__control">
+
+                                    <apex:inputtext value="{!email}" id="horizontal-input-id-03" styleClass="slds-input" />
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+
+                                <label class="slds-form-element__label" for="Subject">
+                                    <abbr class="slds-required" title="required">* </abbr>Subject</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputtext value="{!subject}" id="Subject" required="true" styleClass="slds-input" />
+
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label slds-m-left_medium" for="ticketType"> Ticket Type</label>
+                                <div class="slds-form-element__control">
+                                    <apex:selectList id="ticketType" value="{!ticketType}" size="1" styleClass="slds-select">
+                                        <apex:selectOption itemValue="" itemLabel="--Select One--" />
+                                        <apex:selectOption itemValue="DocuSign" itemLabel="DocuSign" />
+                                        <apex:selectOption itemValue="Integrations" itemLabel="Integrations" />
+                                        <apex:selectOption itemValue="Importing" itemLabel="Importing" /> 
+                                        <apex:selectOption itemValue="Missing Features" itemLabel="Missing Features" />
+                                        <apex:selectOption itemValue="Adding Fields" itemLabel="Adding Fields" />
+                                        <apex:selectOption itemValue="Mapping" itemLabel="Mapping" />
+                                        <apex:selectOption itemValue="Dashboards and Reports" itemLabel="Dashboards and Reports" />
+                                        <apex:selectOption itemValue="Layout Changes" itemLabel="Layout Changes" />
+                                        <apex:selectOption itemValue="Other" itemLabel="Other" />
+                                    </apex:selectList>
+
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+
+                                <label class="slds-form-element__label" for="Description">
+                                    <abbr class="slds-required" title="required">* </abbr>Description</label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputTextarea id="Description" required="true" styleClass="slds-textarea" value="{!description}"></apex:inputTextarea>
+                                </div> 
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label slds-m-left_medium" for="horizontal-input-id-03"> 
+                                    Attachment Link
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputTextarea id="AttachmentLink" required="true" styleClass="slds-textarea" value="{!attachmentLink}" />
+                                </div>
+                                <br/>
+                                <label  style="color: #484848;">Note : Only add public link in attachment link section for example,Loom Video Link,Lightshot screenshot link.</label>
+                                <br/>
+                                <label  style="color: #484848;">Note : Please ensure mandatory fields are filled.</label>
+                            </div>
+
+                        </div>
+                        <div align="center" draggable="false">
+                            <apex:commandButton styleClass="slds-button slds-button_brand" value="Submit" action="{!saveCase}" />
+                        </div>
+                        <br/>
+                    </apex:form>
+
+                </article>
+            </div>
+
+            <div class="slds-col slds-size_3-of-12">
+            </div>
+        </div>
+    </apex:outputPanel>
+    <!--Success or failure message display section -->
+    <apex:outputPanel title="Thank you" rendered="{!showSuccess}">
+        <section id="success-msg-section">
+            <apex:outputPanel title="Thank you" rendered="{!!isError}">
+                <p class="slds-align_absolute-center" style="font-size: 140px;color: #3c993c;"> &#10003;</p>
+            </apex:outputPanel>
+            <apex:outputPanel title="Thank you" rendered="{!isError}">
+                <p class="slds-align_absolute-center" style="font-size: 140px;color: #ae2e2e;"> &times;</p>
+            </apex:outputPanel>
+
+            <h1 class="slds-align_absolute-center" style="color:#1a1f71; font-size: 1.999rem;">
+                {!toastTitle}
+                <br/>
+            </h1>
+            <h3 class="slds-align_absolute-center" style="color:#5c5c5c;font-size: 1rem;">{!toastMessage}</h3>
+
+        </section>
+    </apex:outputPanel>
+</apex:page>

@@ -1,0 +1,33 @@
+<template>
+    <p class="slds-var-m-bottom_medium">{header}</p>
+
+    <!-- Datatable for record types -->
+    <lightning-datatable
+        data-id="recordTypeTable"
+        key-field="value"
+        data={recordTypes}
+        columns={columns}
+        selected-rows={selectedRecordTypeIds}>
+    </lightning-datatable>
+
+    <!-- Dropdown for filtering records by created date -->
+    <div class="slds-m-top_medium">
+        <label class="custom-combobox-label slds-form-element__label bold">{comboboxLabel}</label>
+        <lightning-combobox
+            variant="label-hidden"
+            name="createdDateFilter"
+            options={dateFilterOptions}
+            value={selectedDateFilter}
+            onchange={handleDateFilterChange}>
+        </lightning-combobox>
+    </div>
+
+    <!-- Cancel and Save Buttons -->
+    <div class="slds-m-top_medium slds-grid slds-grid_align-end">
+        <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+        <lightning-button label="Save" variant="brand" class="slds-m-left_small " onclick={handleSave} disabled={loading}></lightning-button>
+    </div>
+
+    <!-- Loading spinner -->
+    <lightning-spinner lwc:if={loading} alternative-text="Saving..." size="medium"></lightning-spinner>
+</template>

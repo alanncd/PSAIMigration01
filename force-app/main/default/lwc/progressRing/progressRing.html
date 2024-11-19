@@ -1,0 +1,25 @@
+<template>
+    
+    <div  lwc:if={isComplete} class="slds-progress-ring slds-progress-ring_complete">
+        <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <svg viewBox="-1 -1 2 2">
+            <circle class="slds-progress-ring__path" id="slds-progress-ring-path-52" cx="0" cy="0" r="1"></circle>
+          </svg>
+        </div>
+        <div class="slds-progress-ring__content">
+          <span class="slds-icon_container slds-icon-utility-check" title="Complete">
+            <lightning-icon icon-name="utility:check" alternative-text="Success"></lightning-icon>
+            <span class="slds-assistive-text">Complete</span>
+          </span>
+        </div>
+    </div>
+
+    <div lwc:else class="slds-progress-ring">
+        <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={fillpercent}>
+            <svg viewBox="-1 -1 2 2" >
+                <path class="slds-progress-ring__path" id="slds-progress-ring-path-53" d={arcPath}></path>
+            </svg>
+        </div>
+        <div class="slds-progress-ring__content slds-p-bottom_xxx-small">{label}</div>
+    </div>      
+</template>

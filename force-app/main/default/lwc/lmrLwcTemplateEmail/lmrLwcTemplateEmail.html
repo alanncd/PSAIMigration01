@@ -1,0 +1,128 @@
+<!--
+  @description       : Component to show cadences
+  @author            : fernandofernandez@leftmainrei.com
+  @group             : 
+  @last modified on  : 01-02-2022
+  @last modified by  : fernandofernandez@leftmainrei.com
+  Modifications Log 
+  Ver   Date         Author                                             Modification
+  1.0   01-02-2022   Fernando Jesús Fernández Esteban                  Initial Version
+-->
+<template>
+    <template if:true={isModalFormOpen} >
+        <template if:true={triggerCadence}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-labelledby="modal-heading-01" aria-modal="false">
+                    <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleCancel}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-form" class="slds-text-heading_medium">Create Record</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-is-relative custom-class">
+                
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-form">
+                        <div class="slds-form" role="list">
+                            <template if:true={triggerSmartphone}>
+                                <div class="">
+                                    <lightning-input type="text" label="Name of Cadence" value={titleCadence} onchange={handleInputChange}></lightning-input>
+                                </div>
+                            <h2 class="slds-section__title slds-theme_shade slds-m-bottom_small slds-m-top_large">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Section Title">
+                                    Sms Template
+                                </span>
+                            </h2>
+                            <lightning-combobox
+                            name="Sms Template"
+                            label="Sms Template"
+                            value={smsTemplateValue}
+                            placeholder="Select Folder SMS Template"
+                            options={SmsTemplatesOptions}
+                            onchange={handleChangeFolderTask}
+                            dropdown-alignment="auto"
+                            ></lightning-combobox>
+                            </template>
+
+                            <template if:false={triggerSmartphone}>
+                                <h2 class="slds-section__title slds-theme_shade slds-m-bottom_small slds-m-top_large">
+                                    <span class="slds-truncate slds-p-horizontal_small" title="Section Title">
+                                        Cadence of SMS is not activated yet.
+                                    </span>
+                                </h2>
+                            </template>
+                            
+                            <template if:true={triggerEmail}>
+                            <h2 class="slds-section__title slds-theme_shade slds-m-bottom_small slds-m-top_large">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Section Title">
+                                    Email Templates
+                                </span>
+                            </h2>
+                            <template if:true={picklistTemplatesOptions} >
+                            <lightning-combobox
+                            name="Email Template"
+                            label="Email Template"
+                            value={emailTemplateValue}
+                            placeholder="Select Folder Email Template"
+                            options={picklistTemplatesOptions}
+                            onchange={handleChangeFolderEmail}
+                            dropdown-alignment="auto"
+                            ></lightning-combobox>
+                            <lightning-input class="slds-p-left" type="checkbox" disabled ="true" data-id="checkbox" label={emailVerified} checked={markedEmail} field-level-help="Setup>Organization-wide Email Addresses>Add an email> Verified the Email."></lightning-input>
+                            
+                        </template>
+                        </template>
+                        <template if:false={triggerEmail}>
+                            <h2 class="slds-section__title slds-theme_shade slds-m-bottom_small slds-m-top_large">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Section Title">
+                                    Cadence of Email is not activated yet.
+                                </span>
+                            </h2>
+                        </template>           
+                        </div>
+                        <template if:true={triggerTask}>
+
+                        <h2 class="slds-section__title slds-theme_shade slds-m-bottom_small slds-m-top_large">
+                                    <span class="slds-truncate slds-p-horizontal_small" title="Section Title">
+                                        Task Folder
+                                    </span>
+                        </h2>
+                                <lightning-combobox
+                                name="Task Folder"
+                                label="Task Folder"
+                                value={TaskSequenceFolderValue}
+                                placeholder="Select Folder Task Template"
+                                options={TaskSequenceFolderOpions}
+                                onchange={handleChangeaTaskSequence}
+                                dropdown-alignment="auto"
+                                ></lightning-combobox>
+                            </template>
+                            <template if:false={triggerTask}>                                
+                                <h2 class="slds-section__title slds-theme_shade slds-m-bottom_small slds-m-top_large">
+                                    <span class="slds-truncate slds-p-horizontal_small" title="Section Title">
+                                        Cadence of Task is not activated yet.
+                                    </span>
+                                </h2>
+                            </template> 
+                                <div class="slds-m-top_small" style="text-align: center; border: 1px solid">
+                                <lightning-button variant="brand" label="Save" title="Primary action" onclick={handleClick} disabled={disabledButton} class="slds-m-left_x-small"></lightning-button>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template if:false={triggerCadence}>
+        <h2 class="slds-section__title slds-theme_shade slds-m-bottom_small slds-m-top_large">
+            <span class="slds-truncate slds-p-horizontal_small" title="Section Title">
+                Cadences automation Process is not activated yet.
+            </span>
+        </h2>
+      </template>
+
+    </template>   
+ </template>

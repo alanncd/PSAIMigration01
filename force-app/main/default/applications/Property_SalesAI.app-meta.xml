@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#3A5C3B</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Property Sales.AI</label>
+    <navType>Standard</navType>
+    <tabs>Property_SalesAI_Administration_Panel</tabs>
+    <tabs>Property_SalesAI__c</tabs>
+    <tabs>Property_SalesAI_Match__c</tabs>
+    <tabs>Property_SalesAI_History__c</tabs>
+    <tabs>Subscription__c</tabs>
+    <tabs>Property__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Property_Sales_AI_UtilityBar</utilityBar>
+</CustomApplication>

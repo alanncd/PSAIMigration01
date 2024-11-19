@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Matched_Opportunity_Reason_Field__c</fullName>
+    <description>When an Opportunity match is found, what is the Opportunity field to update the lost reason</description>
+    <externalId>false</externalId>
+    <label>Matched Opportunity Reason Field</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

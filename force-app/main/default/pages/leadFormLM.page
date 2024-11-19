@@ -1,0 +1,5 @@
+<apex:page standardController="Lead">
+    <apex:repeat value="{!$ObjectType.Lead.FieldSets.properNames}" var="f"> 
+        <apex:outputText value="{!Lead[f]}" /><br/>
+    </apex:repeat>
+</apex:page>

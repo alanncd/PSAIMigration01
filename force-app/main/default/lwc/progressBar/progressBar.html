@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-grid slds-grid_align-spread">
+        <div>
+            <p>Complete all the steps below to finish setting up {setupName}</p>
+        </div>
+        <div>
+            <p class="bold">{progressPercentage}% Complete</p>
+        </div>
+    </div>
+    <lightning-progress-bar value={progressPercentage} size="large" variant="circular"></lightning-progress-bar>
+</template>

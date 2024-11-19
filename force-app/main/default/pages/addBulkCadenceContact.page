@@ -1,0 +1,184 @@
+<apex:page standardController="Contact" standardStylesheets="false" recordSetVar="leads" extensions="addBulkCadenceLead" >
+    <apex:stylesheet value="{!URLFOR($Resource.bulkcadenceStyle)}"/>
+    <style type="text/css">
+        .new-text {
+        color: #122C5D;
+        font-size: 18px;
+        text-align: center !important;
+        display:block;
+        }
+        
+    
+        .new-text2 {
+        color: #122C5D;
+        font-size: 18px;
+        text-align: center !important;
+        display: none;
+        }
+        .submit-button-container2 {
+            display:block;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    
+        .buttonStyle-v2 {
+        border: none;
+        width: 25%;
+        background-color: #0176D3 !important;
+        color: white !important;
+        text-align: center;
+        padding-top: 4px;
+        border-radius: 6px;
+        padding: 8px;
+        display: inline-block;
+        
+        }
+        .buttonStyle-v3 {
+        border: none;
+        width: 25%;
+        background-color: grey !important;
+        color: white !important;
+        text-align: center;
+        padding-top: 4px;
+        border-radius: 6px;
+        padding: 8px;
+        display: inline-block;
+
+        }
+        </style>
+    
+        <script type="text/javascript">
+         
+            function disableButtonOnClick(input) {
+                var text1 = input.replace("buttonprincipal", "text1");
+                var text2 = input.replace("buttonprincipal", "text2");
+    
+                var getText1 = document.getElementById(text1);
+                var getText2 = document.getElementById(text2);
+    
+                getText2.className ="new-text";
+                getText1.className ="new-text2";
+    
+                var override_prod = document.getElementById(input);
+                override_prod.disabled = 'disabled';
+                override_prod.className = 'buttonStyle-v3';
+
+    
+            }
+        </script>
+
+    <apex:slds />
+    
+    <div class='marginpage'>
+        
+       <div class="slds-scope">
+    <!-- HEADING AREA -->   
+    <!-- MEDIA OBJECT = FIGURE + BODY -->
+    <div class="slds-media slds-no-space slds-grow">
+        <div class="slds-media__figure">
+            <svg aria-hidden="true" class="slds-icon slds-icon-standard-contact" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/standard-sprite/svg/symbols.svg#contact')}"></use>
+            </svg>
+        </div>
+        <div class="slds-media__body">
+            <p class="slds-text-title_caps slds-line-height_reset">Contacts</p>
+            <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate" title="My Contacts">Bulk Add Cadence</h1>
+        </div>
+    </div>
+    <!-- /MEDIA OBJECT -->
+    <!-- /HEADING AREA -->
+</div>
+
+    <br/>
+   
+    <apex:form rendered="{!activateTriggerCadences}" styleClass="form-container">
+        <div class="layout-container">
+            <div class="table-container">
+                <p style='color:red'>Note: Contacts with a related cadence were removed from the section.</p>
+                <table class="lead-table">
+                    <thead>
+                         <tr class="summary-row">
+                <td colspan="3">
+                    Contacts Selected <span class='new-line'> Total of leads: {!allContacts.size}
+                    </span>
+                </td>
+            </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Has Cadence</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Summary Row -->
+           
+                        <apex:repeat value="{!allContacts}" var="lead">
+                            <tr>
+                                <td>{!lead.Name}</td>
+                                <td>{!IF(lead.Has_Cadence__c, 'Yes', 'No')}</td>
+                               
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dropdown-container">
+                <apex:outputPanel rendered="{!activateSmartphone}">
+                    <label>SMS Template</label>
+                    <apex:selectList value="{!selectedFolderSMS}" size="1" styleClass="select-list">
+                        <apex:selectOption itemValue="" itemLabel="Select one option"/>
+                        <apex:selectOptions value="{!folderOptions1}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!activateEmail}">
+                    <label>Email Template</label>
+                    <apex:selectList value="{!selectedFolderEmail}" size="1" styleClass="select-list">
+                        <apex:selectOption itemValue="" itemLabel="Select one option"/>
+                        <apex:selectOptions value="{!folderOptions2}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!activateTask}">
+                    <label>Task Template</label>
+                    <apex:selectList value="{!selectedFolderTask}" size="1" styleClass="select-list">
+                        <apex:selectOption itemValue="" itemLabel="Select one option"/>
+                        <apex:selectOptions value="{!folderOptions3}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+                <br></br>
+                <br></br>
+
+                    <apex:outputPanel rendered="{!!disableSaveButton}" styleClass="new-text" id="text1">
+                            Click button below <b>once</b>, as extra clicks may create <br />
+                            duplicate Cadences per record.
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!!disableSaveButton}" styleClass="new-text2" id="text2">
+                        <div>
+                            Thank you. We are scheduling the Cadence. This page<br />will redirect once complete.
+                        </div>
+                    </apex:outputPanel>
+
+                  <div class="submit-button-container2">
+                    <apex:outputPanel id="buttons">
+                        <apex:commandButton id="buttonprincipal" styleClass="buttonStyle-v2" value="Add Cadence" action="{!submit}" onclick="disableButtonOnClick(this.id);" rendered="{!!disableSaveButton}" disabled="{!disableSaveButton}" reRender="buttons,buttons2,text1,text-simple" >
+                        </apex:commandButton>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="buttons2">
+                        <apex:commandButton styleClass="buttonStyle-v3" value="Add Cadence" rendered="{!disableSaveButton}" disabled="{!!disableSaveButton}" reRender="buttons,buttons2,text2,text1" >
+                        </apex:commandButton>
+                    </apex:outputPanel>
+                </div>
+
+            </div>
+        </div>
+         
+    </apex:form>
+
+    <apex:outputPanel rendered="{!NOT(activateTriggerCadences)}">
+        <h1 style='text-align: center !important;font-size:19px !important'>Cadences automation Process is not activated yet.</h1>
+    </apex:outputPanel>   
+    </div>
+
+   
+</apex:page>

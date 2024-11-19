@@ -1,0 +1,100 @@
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    controller="LeadConversionAuraController" access="global">
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleSearch}" /> 
+
+    <aura:attribute name="leadWrapper" type="List" />
+    <aura:attribute name="selectedLead" type="List" /> 
+
+    <aura:attribute name="allSelected" type="Boolean" default="false" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+
+    <aura:attribute name="userEmail" type="String" default="" />
+
+    <aura:attribute name="showPopUp" type="Boolean" default="false" />
+    <aura:attribute name="nextStep" type="String" default="Convert Lead" />
+
+    <lightning:card title="Lead Conversion">
+        <div class="c-container">
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem size="3" padding="around-small">
+                        <lightning:input type="text" label="Next Step" variant="label-inline"  value="{!v.nextStep}" />
+                </lightning:layoutItem>
+                <lightning:layoutItem size="2" padding="around-small">
+                    <lightning:button variant="brand" label="Search" class="marginTopforbutton"  title="Search"
+                    onclick="{! c.handleSearch }" /> 
+                </lightning:layoutItem>
+                <lightning:layoutItem size="2" padding="around-small">
+                    <lightning:button variant="brand" label="Convert Lead" class="marginTopforbutton"  title="Convert Lead"
+                    onclick="{! c.displayPopUp }" />
+                </lightning:layoutItem>
+                <lightning:layoutItem size="5" padding="around-small"/>
+            </lightning:layout>
+        </div>
+        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1">
+            <div class="slds-scrollable slds-box" style="height: 35rem;width: 83rem;">
+                <table class="slds-table slds-table--bordered table">
+                    <lightning:spinner class="{! if( v.showSpinner, '', 'slds-hide' ) }" alternativeText="Loading"
+                        size="small" variant="brand" aura:id="spinner" />
+                    <!-- Table header -->
+                    <thead>
+                        <tr class="slds-text-title--caps header">
+                            <td width="100">
+                                <lightning:input type="checkbox" checked="{!v.allSelected}"
+                                    onchange="{! c.handleRecordSelect }" aura:id="AllChekbox" />
+                            </td>
+                            <td> Name </td>
+                            <td> Next Step</td>
+                            <td> Email </td>
+                            <td> Phone </td>
+                            <td> Status</td>
+                        </tr>
+                    </thead>
+                    <!-- Table body -->
+                    <tbody>
+                        <aura:iteration items="{!v.leadWrapper}" var="item">
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <lightning:input type="checkbox" value="{!item.leadObj.Id}" checked="{!item.isBoolean}" onchange="{! c.handleSelect }" />
+                                    </div> 
+                                </td>
+                                <td>{!item.leadObj.Name}</td>
+                                <td>{!item.leadObj.Next_Step__c}</td>
+                                <td>{!item.leadObj.Email}</td>
+                                <td>{!item.leadObj.Phone}</td>
+                                <td>{!item.leadObj.Status}</td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </lightning:card>
+
+    <aura:if isTrue="{!v.showPopUp}">
+        <section role="dialog" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick="{! c.handleCancel }">
+                        <lightning:icon iconName="utility:close" alternativeText="close" variant="inverse" />
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Lead Conversion</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:input type="email"  required="true" value="{!v.userEmail}"
+                        label="Email Address" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{! c.handleCancel}" />
+                    <lightning:button variant="brand" label="Start Converstion" title="Start Converstion"
+                        onclick="{! c.handleConverstion }" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div> 
+    </aura:if>
+</aura:component>

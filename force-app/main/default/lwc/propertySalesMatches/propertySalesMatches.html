@@ -1,0 +1,73 @@
+<template>
+    <div class="slds-is-relative">
+        <lightning-spinner lwc:if={loading} alternative-text="Loading..."></lightning-spinner>
+        <template lwc:if={showDataTable}>
+            <lightning-card title="Confirm matches" icon-name="standard:lead">
+                <div class="slds-m-around_medium">
+                    <lightning-datatable
+                        key-field="id"
+                        data={data}
+                        columns={columns}
+                        onrowselection={handleRowSelection}
+                    ></lightning-datatable>
+                    
+                    <div lwc:if={isUpdateDisabled} class="slds-m-top_medium slds-grid slds-grid_align-end">
+                        <lightning-button 
+                            variant="destructive"
+                            icon-name="utility:close" 
+                            label="Not a Match" 
+                            disabled>
+                        </lightning-button>
+                        
+                        <lightning-button 
+                            variant="success" 
+                            label="Looks Good!" 
+                            class="slds-m-horizontal_medium"
+                            icon-name="utility:check" 
+                            disabled
+                        ></lightning-button>
+                    </div>
+
+                    <div lwc:else class="slds-m-top_medium slds-grid slds-grid_align-end">
+                        <lightning-button 
+                            variant="destructive"
+                            icon-name="utility:close" 
+                            label="Not a Match" 
+                            onclick={markAsNotMatch}>
+                        </lightning-button>
+                        
+                        <lightning-button 
+                            variant="success" 
+                            label="Looks Good!" 
+                            onclick={markSelectedAsGood} 
+                            class="slds-m-horizontal_medium"
+                            icon-name="utility:check" 
+                        ></lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+        <template lwc:else>
+            <lightning-card title={confirmUpdate} icon-name="standard:lead">
+                <div class="slds-m-around_medium">
+                    <lightning-datatable
+                        key-field="id"
+                        data={selectedData}
+                        columns={columns}
+                        hide-checkbox-column="true"
+                    ></lightning-datatable>
+        
+                    <div class="slds-m-top_medium slds-grid slds-grid_align-end">
+                        <lightning-button label="Cancel" onclick={handleBack} class="slds-m-left_x-small"></lightning-button>
+                        <lightning-button 
+                            label="Update" 
+                            variant="brand" 
+                            onclick={handleUpdate} 
+                            class="slds-m-left_x-small">
+                        </lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>   
+    </div> 
+</template>

@@ -1,0 +1,6 @@
+<apex:page standardController="Transactions__c" extensions="TwnsqrUpdateForTransactionCntrl">
+    <head>
+        <apex:slds />
+    </head>
+    <c:TwnsqrUpdateCmp recId="{!transactionRecord.Id}" objName="Transactions__c"/>
+</apex:page>

@@ -1,0 +1,13 @@
+<apex:page controller="AddLicenseController">
+    <style>
+    	iframe {
+        	padding-top: 30px !important; 
+        }
+        	
+    
+    </style>
+    
+     
+    <apex:iframe scrolling="true" id="addLicense" src="{!leftMainUrl}/CallAddLicensePage?orgId={!orgId}"  />
+	 
+</apex:page>

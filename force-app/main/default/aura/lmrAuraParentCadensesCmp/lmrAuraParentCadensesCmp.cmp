@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:lightningQuickActionWithoutHeader,lightning:availableForFlowScreens" access="global">
+<aura:attribute name="recordId" type="String"/> 
+<aura:attribute name="readOnly" type="Boolean" default="true"/>
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<c:lmrLwcTemplateEmail onclose="{!c.closeMethodInAuraController}" recordId="{!v.recordId}" onrecordChange="{!c.refreshView}"></c:lmrLwcTemplateEmail>
+</aura:component>

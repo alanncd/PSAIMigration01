@@ -1,0 +1,6 @@
+<aura:documentation>
+	<aura:description>Documentation</aura:description>
+	<aura:example name="ExampleName" ref="exampleComponentName" label="Label">
+		SMS button to create SMS templates for cadences
+	</aura:example>
+</aura:documentation>

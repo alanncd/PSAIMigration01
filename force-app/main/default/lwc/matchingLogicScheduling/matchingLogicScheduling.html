@@ -1,0 +1,44 @@
+<template>
+    <lightning-spinner lwc:if={loading} alternative-text="Loading..."></lightning-spinner>
+    <p class="slds-var-m-bottom_medium">Address matching will occur at 12:00am on the day selected below.</p>
+    
+    <div class="slds-m-top_medium">
+        <label class="bold custom-combobox-label slds-form-element__label bold">Select Day Matching Should Occur</label>
+        <lightning-combobox
+            class="slds-size_1-of-2"
+            variant="label-hidden"
+            placeholder="Select Time Period"
+            options={dayOfTheWeek}
+            value={selectedDay}
+            onchange={handleDayChange}
+        ></lightning-combobox>
+    </div>
+    <div class="slds-m-top_medium">
+        <label class="custom-combobox-label slds-form-element__label bold">Select Time Period to Match your Leads and Opportunities</label>
+        <lightning-combobox
+            class="slds-size_1-of-2"
+            variant="label-hidden"
+            name="createdDateFilter"
+            options={dateFilterOptions}
+            value={selectedDateFilter}
+            onchange={handleDateFilterChange}>
+        </lightning-combobox>
+    </div>
+    <div class="slds-m-top_medium">
+        <label class="custom-combobox-label slds-form-element__label bold">Automatically update leads and opps status when a match is found?</label>
+        <lightning-combobox
+            class="slds-size_1-of-2"
+            variant="label-hidden"
+            options={autoUpdateOptions}
+            value={autoUpdateStatus}
+            onchange={handleAutoUpdateChange}>
+        </lightning-combobox>
+    </div>
+
+
+
+    <div class="slds-m-top_medium slds-grid slds-grid_align-end">
+        <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+        <lightning-button label="Save" variant="brand" class="slds-m-left_small" onclick={handleSave}></lightning-button>
+    </div>
+</template>

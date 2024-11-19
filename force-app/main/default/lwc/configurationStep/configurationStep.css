@@ -1,0 +1,8 @@
+@import "c/cssConfigurationWizard";
+
+.slds-media__figure {
+    margin: 0;
+}
+.slds-text-heading_medium {
+    margin-top: 0; /* Remove any default margin on top */
+}

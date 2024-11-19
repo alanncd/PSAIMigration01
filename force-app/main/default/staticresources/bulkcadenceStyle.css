@@ -1,0 +1,154 @@
+.form-container {
+    margin-bottom: 20px;
+}
+
+.layout-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-container {
+    flex: 1;
+}
+
+.dropdown-container {
+    flex: 1;
+    display: inline;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* Align items to the start of the container (left side) */
+    padding-left: 20px;
+    /* Provide some space from the table */
+
+}
+
+.select-list {
+    width: 100%;
+    /* Make select lists fill the available space */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+    margin-bottom: 10px;
+    /* Provide some space between each dropdown */
+    height: 30px;
+}
+
+/* Ensure the label and select list are aligned properly */
+label {
+    display: block;
+    /* Make label take the full width */
+    margin-bottom: 5px;
+    /* Space between the label and the dropdown */
+}
+
+.summary-row td {
+    background-color: #f2f2f2;
+    /* Light grey background */
+    font-weight: bold;
+    color: #032D60;
+    font-size: 14px;
+    /* Center-align the text */
+}
+
+.submit-button-container {
+    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.lead-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lead-table th,
+.lead-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    padding-left: 11px !important;
+}
+
+.lead-table th {
+    background-color: white;
+    font-weight: bold;
+    color: #444444
+}
+
+.select-list-container {
+    display: none;
+    /* Hide the original container to use the new layout */
+}
+
+.submit-button {
+    padding: 8px 20px;
+    background-color: #0070d2 !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #005fa1 !important;
+}
+
+.new-line {
+    display: block;
+    padding-top: 9px;
+    font-size: 13px;
+    font-weight: normal;
+
+}
+
+.solid-line {
+    border-top: 2px solid #000;
+    /* Solid black line */
+    margin: 10px 0;
+    /* Add some spacing around the line */
+}
+
+.btn {
+    padding: 8px 20px;
+    background-color: #0070d2 !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.my-page .submit-button-container .submit-button {
+    padding: 8px 20px;
+    background-color: #0070d2 !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.my-page .submit-button-container .submit-button:hover {
+    background-color: #005fa1 !important;
+}
+
+.btn,
+.button,
+.formulaButton,
+.btnWhatsNew {
+    background-color: green !important;
+}
+
+.buttonStyle {
+    border: none;
+    width: 15%;
+    background-color: #0176D3 !important;
+    color: white !important;
+    text-align: center;
+    padding-top: 4px;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+.marginpage {
+    margin: 23px;
+    /* Ajusta este valor según tus necesidades */
+}

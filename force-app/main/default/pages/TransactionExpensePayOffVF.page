@@ -1,0 +1,19 @@
+<apex:page renderAs="PDF"  standardController="Transaction_Expense__c" extensions="TransactionExpensePayOffController" showHeader="false">
+<p><br /> {!WrapObj.AccountName}</p>
+<p>{!WrapObj.TodaysDate}</p> 
+<p>To: {!WrapObj.ClosingAttorney}</p>
+<p>RE: {!WrapObj.TransactionName}</p> 
+<p>I, {!WrapObj.AccountName} hereby provide you with the following loan payoff amount for the closing on the subject property. The loan payoff shown below is based on a closing date of {!wrapObj.PayOffDate}. The final payoff should be reduced or increased using the per diem interest rate listed below depending on the final closing date. This per diem interest rate is good until the end of {!wrapObj.ClosingDateExtraThirtyDate}. If the closing should extend beyond this date, please contact us for an updated payoff amount.</p>
+<p><strong>Loan Payoff: ${!wrapObj.PayOffAmount} </strong></p>
+<p><strong>Per Diem Interest Rate: ${!wrapObj.PerDiemInterestRate}</strong></p>
+<p>Please wire the full amount to the following account:</p>
+<p>Bank Name: <strong>{!wrapObj.BankName}</strong></p>
+<p>Bank Address: <strong>{!wrapObj.BankAddress}</strong></p> 
+<p>Bank Phone Number: <strong>{!wrapObj.BankPhoneNumber}</strong></p>
+<p>Routing Number: <strong>{!wrapObj.RoutningNumber}</strong></p>
+<p>Account Number: <strong>{!wrapObj.AccountNumber}</strong></p>
+<br />
+<br />
+<p>{!WrapObj.AccountName} (Signature)</p> 
+<p>Please contact us with instructions for execution of the loan cancellation documents. I can also be reached via e-mail at <a href="mailto:{!wrapObj.AccountEmail}">{!wrapObj.AccountEmail}</a></p>
+</apex:page>

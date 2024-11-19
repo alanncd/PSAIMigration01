@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Left_Main__All</fullName>
+    <columns>NAME</columns>
+    <columns>Left_Main__ProcessName__c</columns>
+    <columns>Left_Main__LogDetail__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>
