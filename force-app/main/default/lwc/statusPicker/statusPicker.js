@@ -21,6 +21,8 @@ export default class StatusPicker extends LightningElement {
     fieldOptions = [];
     selectedOption;
     picklistValues; //if selected option is a picklist field this are the options
+    
+    preventRaceCond = false; // New property to track readiness
 
     get header() {
         return this.objectApiName === 'Lead' 
@@ -76,7 +78,11 @@ export default class StatusPicker extends LightningElement {
                 label: status.label,
                 value: status.value
             }));
-            this.getCustomSettings(); 
+            if (this.preventRaceCond) {
+                this.getCustomSettings();
+            } else {
+                this.preventRaceCond = true;
+            }
         } else if (error) {
             this.statuses = [];
             console.error('Error fetching statuses:', JSON.stringify(error));
@@ -87,11 +93,16 @@ export default class StatusPicker extends LightningElement {
     objectInfo({ data, error }) {
         if (data) {
             this.populateFieldOptions(data.fields);
+            if (this.preventRaceCond) {
+                this.getCustomSettings();
+            } else {
+                this.preventRaceCond = true;
+            }
         }
         if (error) {
             console.error('Error loading object info', error);
         }
-    }
+    }    
 
     get isPicklist() {
         return this.selectedOption && this.selectedOption.dataType === 'Picklist';

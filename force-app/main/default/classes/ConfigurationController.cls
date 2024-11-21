@@ -46,32 +46,28 @@ public with sharing class ConfigurationController {
         }
         
         try {
-            Property_SalesAI_History__c history;
             // Query the most recent Property_SalesAI_History__c record based on Finish_Time__c
             List<Property_SalesAI_History__c> histories = [
                 SELECT Id, OwnerId, Name, Finish_Time__c, Matched_Leads__c, Matched_Opportunities__c, Status__c,
                 Lead_Errors__c, Opportunity_Errors__c
                 FROM Property_SalesAI_History__c
                 WHERE IsDeleted = false
+                WITH SECURITY_ENFORCED
                 ORDER BY CreatedDate DESC
                 LIMIT 1
             ];
-
-            // Use Security.stripInaccessible to remove inaccessible fields based on the current user's FLS
-            histories = (List<Property_SalesAI_History__c>) Security.stripInaccessible(AccessType.READABLE, histories).getRecords();
             
             Map<String, Object> result = new Map<String, Object>();
             if (histories.size() > 0) {
-                history = histories[0];
-                result.put('Id', history.Id);
-                result.put('Status__c', history.Status__c);
-                result.put('Finish_Time__c', history.Finish_Time__c);
-                result.put('Matched_Leads__c', history.Matched_Leads__c);
-                result.put('Matched_Opportunities__c', history.Matched_Opportunities__c);
-                result.put('Lead_Errors__c', history.Lead_Errors__c);
-                result.put('Opportunity_Errors__c', history.Opportunity_Errors__c);
-                result.put('sObjectAPIName', history.getSObjectType().getDescribe().getName());
-                for (ChildRelationship cr : history.getSObjectType().getDescribe().getChildRelationships()) {
+                result.put('Id', histories[0].Id);
+                result.put('Status__c', histories[0].Status__c);
+                result.put('Finish_Time__c', histories[0].Finish_Time__c);
+                result.put('Matched_Leads__c', histories[0].Matched_Leads__c);
+                result.put('Matched_Opportunities__c', histories[0].Matched_Opportunities__c);
+                result.put('Lead_Errors__c', histories[0].Lead_Errors__c);
+                result.put('Opportunity_Errors__c', histories[0].Opportunity_Errors__c);
+                result.put('sObjectAPIName', histories[0].getSObjectType().getDescribe().getName());
+                for (ChildRelationship cr : histories[0].getSObjectType().getDescribe().getChildRelationships()) {
                     if(cr.getRelationshipName() != null && cr.getRelationshipName().contains('Properties_Sales_Matches__r')) {
                         result.put('ChildRelationshipName', cr.getRelationshipName());
                     }
@@ -161,7 +157,7 @@ public with sharing class ConfigurationController {
        
         // Retrieve the custom setting instance
         Property_SalesAI_Settings__c customSetting = Property_SalesAI_Settings__c.getOrgDefaults();
-        
+        Boolean reschedule = false;
         try {
             // Dynamically assign field values based on the object API name and the map provided
             for (String field : settingsMap.keySet()) {
@@ -176,6 +172,11 @@ public with sharing class ConfigurationController {
                     putField(customSetting, field, automatic);
                 } else {
                     // Directly assign string values for other fields
+                    if (field.contains('Matching_Day') &&
+                    customSetting.IsSetupComplete__c && customSetting.Matching_Day__c != null &&
+                    !customSetting.Matching_Day__c.equals(fieldValue)) {
+                        reschedule = true;
+                    }
                     putField(customSetting, field, fieldValue);
                 }
             }
@@ -183,6 +184,22 @@ public with sharing class ConfigurationController {
                 upsert customSetting;
             } else {
                 throw new AuraHandledException('Insufficient permissions to update custom settings.');
+            }
+            if (reschedule) {
+                // Query the existing scheduled job
+                CronTrigger ct = [SELECT Id, CronJobDetail.Name 
+                    FROM CronTrigger 
+                    WHERE CronJobDetail.Name = 'Matching logic weekly run' 
+                    WITH SECURITY_ENFORCED LIMIT 1];
+                
+                // Abort the existing job if found
+                if (ct != null) {
+                    System.abortJob(ct.Id);
+                }
+                
+                // Schedule the new job
+                String cronExp = getCronExpressionFromDay(customSetting.Matching_Day__c);
+                System.schedule('Matching logic weekly run', cronExp, new LeadAndOppMatchingScheduler());
             }
         } catch (Exception e) {
             Exception ex = new AuraHandledException('Error saving custom settings: ' + e.getMessage());
