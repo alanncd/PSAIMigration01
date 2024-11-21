@@ -152,6 +152,11 @@
 		<name>CustomPermission</name>
 	</types>
 	<types>
+		<members>Property_SalesAI_Administration_Panel</members>
+		<members>Property_SalesAI_History__c</members>
+		<name>CustomTab</name>
+	</types>
+	<types>
 		<members>Property_Sales_AI_History_Record_Page</members>
 		<members>Property_Sales_AI_UtilityBar</members>
 		<name>FlexiPage</name>
