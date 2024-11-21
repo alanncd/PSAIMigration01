@@ -154,6 +154,10 @@
 	<types>
 		<members>Property_SalesAI_Administration_Panel</members>
 		<members>Property_SalesAI_History__c</members>
+		<members>Property_SalesAI_Match__c</members>
+		<members>Property_SalesAI__c</members>
+		<members>Result_Subscription__c</members>
+		<members>Subscription__c</members>
 		<name>CustomTab</name>
 	</types>
 	<types>
@@ -184,12 +188,12 @@
 		<members>Property_SalesAI_User</members>
 		<name>PermissionSet</name>
 	</types>
-	<types>
+	<!--types>
 		<members>Lead.Business_Account</members>
 		<members>Lead.Homeowner</members>
 		<members>Lead.Prospect</members>
 		<members>Opportunity.Opportunity</members>
 		<name>RecordType</name>
-	</types>
+	</types-->
 	<version>60.0</version>
 </Package>
