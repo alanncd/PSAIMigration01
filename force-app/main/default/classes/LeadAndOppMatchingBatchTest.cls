@@ -12,10 +12,11 @@ public class LeadAndOppMatchingBatchTest {
         }
 
         // Set the fields based on the provided values in the image
-        orgDefaults.Lead_Status__c = 'Open - Not Contacted, Working - Contacted';
+        orgDefaults.Lead_Status__c = 'New Lead, Open - Not Contacted, Working - Contacted';
         Map<String, Schema.RecordTypeInfo> leadRecordTypes = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName();
-        orgDefaults.Lead_Record_Types__c = leadRecordTypes.get('Business_Account').getRecordTypeId();
+        orgDefaults.Lead_Record_Types__c = leadRecordTypes.get('Prospect').getRecordTypeId();
         orgDefaults.Lead_Record_Types__c += ', ' + leadRecordTypes.get('Homeowner').getRecordTypeId();
+        orgDefaults.Lead_Record_Types__c += ', ' + leadRecordTypes.get('Business_Account').getRecordTypeId();
         orgDefaults.Lead_History_Duration__c = 90;
         orgDefaults.Matched_Lead_Reason_Field__c = 'Unqualified_Reason__c';
         orgDefaults.Matched_Lead_Reason__c = 'Already sold (Other Investor)';
@@ -38,6 +39,9 @@ public class LeadAndOppMatchingBatchTest {
         List<Opportunity> oppsToInsert = new List<Opportunity>();
         List<Property__c> propertiesToInsert = new List<Property__c>();
         List<Property_SalesAI__c> propertiesSalesToInsert = new List<Property_SalesAI__c>();
+		// Query for the desired RecordTypeId
+        RecordType rtLead = [SELECT Id FROM RecordType WHERE SObjectType = 'Lead' AND DeveloperName = 'Prospect' LIMIT 1];
+        RecordType rtOpp = [SELECT Id FROM RecordType WHERE SObjectType = 'Opportunity' AND DeveloperName = 'Opportunity' LIMIT 1];
         //Dummie account to prevent Opportunity Validation Rule
         Account testAcc = new Account();
         testAcc.Name = 'Test Account';
@@ -51,12 +55,12 @@ public class LeadAndOppMatchingBatchTest {
             String similarityKey = 'KeyO_1000' + i;
 
             // Create Lead
-            Lead lead = new Lead(LastName = 'Test Lead MatchesBoth' + i, Company = 'Test Company ' + i, Similarity_Key__c = similarityKey, Status = 'Open - Not Contacted');
+            Lead lead = new Lead(LastName = 'Test Lead MatchesBoth' + i, Company = 'Test Company ' + i, Similarity_Key__c = similarityKey, Status = 'Open - Not Contacted',RecordTypeId = rtLead.Id);
             leadsToInsert.add(lead);
 
             // Create Opportunity
             Opportunity opp = new Opportunity(Name = 'Test Opportunity MatchesBoth' + i, AccountId = testAcc.Id, Last_Offer_Made__c = 234000, 
-            StageName = 'Prospecting', CloseDate = Date.today(), Similarity_Key__c = similarityKey);
+            StageName = 'Prospecting', CloseDate = Date.today(), Similarity_Key__c = similarityKey, RecordTypeId = rtOpp.Id);
             oppsToInsert.add(opp);
 
             Property__c property = new Property__c(Similarity_Key__c = similarityKey);
@@ -68,7 +72,7 @@ public class LeadAndOppMatchingBatchTest {
             String similarityKey = 'KeyT2000_' + i;
 
             // Create Lead
-            Lead lead = new Lead(LastName = 'Test Lead OnlyMatchesLead' + i, Company = 'Test Company ' + i, Similarity_Key__c = similarityKey, Status = 'Working - Contacted');
+            Lead lead = new Lead(LastName = 'Test Lead OnlyMatchesLead' + i, Company = 'Test Company ' + i, Similarity_Key__c = similarityKey, Status = 'Working - Contacted',RecordTypeId = rtLead.Id);
             leadsToInsert.add(lead);
 
             // Create Property_SalesAI__c
@@ -81,7 +85,7 @@ public class LeadAndOppMatchingBatchTest {
             
             // Create Opportunity
             Opportunity opp = new Opportunity(Name = 'Test Opportunity OnlyMatchesOpp OK' + i,  AccountId = testAcc.Id, Last_Offer_Made__c = 234000,
-            StageName = 'Proposal/Price Quote', CloseDate = Date.today(), Similarity_Key__c = similarityKey);
+            StageName = 'Proposal/Price Quote', CloseDate = Date.today(), Similarity_Key__c = similarityKey,RecordTypeId = rtOpp.Id);
             oppsToInsert.add(opp);
 
             // Create Property_SalesAI__c
@@ -93,11 +97,11 @@ public class LeadAndOppMatchingBatchTest {
             String similarityKey = 'KeyF_5000' + i;
 
             // Create Lead
-            Lead lead = new Lead(LastName = 'Test Lead  NoMatches' + i, Company = 'Test Company ' + i, Similarity_Key__c = similarityKey, Status = 'Open - Not Contacted');
+            Lead lead = new Lead(LastName = 'Test Lead  NoMatches' + i, Company = 'Test Company ' + i, Similarity_Key__c = similarityKey, Status = 'Open - Not Contacted',RecordTypeId = rtLead.Id);
             leadsToInsert.add(lead);
 
             // Create Opportunity
-            Opportunity opp = new Opportunity(Name = 'Test Opportunity NoMatches ' + i, StageName = 'Prospecting', CloseDate = Date.today(), Similarity_Key__c = similarityKey);
+            Opportunity opp = new Opportunity(Name = 'Test Opportunity NoMatches ' + i, AccountId=testAcc.Id, StageName = 'Prospecting', CloseDate = Date.today(), Similarity_Key__c = similarityKey, RecordTypeId = rtOpp.Id);
             oppsToInsert.add(opp);
         }     
 
@@ -147,7 +151,6 @@ public class LeadAndOppMatchingBatchTest {
         String jobID = System.schedule('Match Job', sch, schedulableInstance);
         Database.executeBatch(new LeadAndOppMatchingBatch());
         Test.stopTest();
-
         // Verify that 50 leads and opportunities are updated, and 100 records are inserted
         List<Lead> updatedLeads = [SELECT Id, Status FROM Lead WHERE Status = 'Closed - Not Converted'];
         List<Opportunity> updatedOpps = [SELECT Id, StageName FROM Opportunity WHERE StageName = 'Closed Lost'];
@@ -267,12 +270,14 @@ public class LeadAndOppMatchingBatchTest {
         // Setup Test Data with duplicate Similarity_Key__c
         List<Lead> leadsToInsert = new List<Lead>();
         List<Opportunity> oppsToInsert = new List<Opportunity>();
-
+		// Query for the desired RecordTypeId
+        RecordType rtLead = [SELECT Id FROM RecordType WHERE SObjectType = 'Lead' AND DeveloperName = 'Prospect' LIMIT 1];
+        RecordType rtOpp = [SELECT Id FROM RecordType WHERE SObjectType = 'Opportunity' AND DeveloperName = 'Opportunity' LIMIT 1];
         // Create leads with the same Similarity_Key__c
         for (Integer i = 0; i < 5; i++) {
-            Lead lead = new Lead(LastName = 'Test Lead DuplicateKey' + i, Company = 'Test Company', Similarity_Key__c = 'DuplicateKey');
+            Lead lead = new Lead(LastName = 'Test Lead DuplicateKey' + i, Company = 'Test Company', Similarity_Key__c = 'DuplicateKey',RecordTypeId = rtLead.Id);
             leadsToInsert.add(lead);
-            Opportunity opp = new Opportunity(Name = 'Test Opportunity DuplicateKey ' + i, StageName = 'Prospecting', CloseDate = Date.today(), Similarity_Key__c = 'DuplicateKey');
+            Opportunity opp = new Opportunity(Name = 'Test Opportunity DuplicateKey ' + i, StageName = 'Prospecting', CloseDate = Date.today(), Similarity_Key__c = 'DuplicateKey', RecordTypeId = rtOpp.Id);
             oppsToInsert.add(opp);
         }
         // Insert the leads
@@ -293,7 +298,7 @@ public class LeadAndOppMatchingBatchTest {
         Test.stopTest();
 
         // After batch job, check the updates (Optional: assert based on the expected outcome of the batch)
-        List<Lead> updatedLeads = [SELECT Id, Status FROM Lead WHERE Status = 'Closed - Not Converted'];
+        List<Lead> updatedLeads = [SELECT Id, Status FROM Lead WHERE Status = 'Closed - Not Converted']; //Unqualified
         System.assertEquals(5, updatedLeads.size(), '5 Leads should be updated to "Closed - Not Converted" with DuplicateKey');
 
         // Check if the Property_SalesAI_Match__c records are created for the leads with the DuplicateKey

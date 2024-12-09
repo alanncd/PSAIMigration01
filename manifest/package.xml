@@ -2,6 +2,7 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
 		<members>ConfigurationController</members>
+		<members>ConfigurationControllerTest</members>
 		<members>LeadAndOppMatchingBatch</members>
 		<members>LeadAndOppMatchingBatchHelper</members>
 		<members>LeadAndOppMatchingBatchTest</members>
@@ -27,6 +28,7 @@
 	<types>
 		<members>Lead.Match_Found_Previous_Status__c</members>
 		<members>Lead.Similarity_Key__c</members>
+		<members>Left_Main_Sold_Data_Setting__mdt.Api_Token__c</members>
 		<members>Opportunity.Match_Found_Previous_Stage__c</members>
 		<members>Opportunity.Similarity_Key__c</members>
 		<members>Property_SalesAI_History__c.Finish_Time__c</members>
@@ -188,12 +190,5 @@
 		<members>Property_SalesAI_User</members>
 		<name>PermissionSet</name>
 	</types>
-	<!--types>
-		<members>Lead.Business_Account</members>
-		<members>Lead.Homeowner</members>
-		<members>Lead.Prospect</members>
-		<members>Opportunity.Opportunity</members>
-		<name>RecordType</name>
-	</types-->
-	<version>60.0</version>
+	<version>62.0</version>
 </Package>

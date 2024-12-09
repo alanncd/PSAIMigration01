@@ -103,6 +103,7 @@ public with sharing class LeadAndOppMatchingBatch implements Database.Batchable<
 
         for (Property_SalesAI__c sp : customObjects) {
             // Matching Leads
+            system.debug('***'+leadMapByKey);
             if (leadMapByKey.containsKey(sp.Similarity_Key__c)) {
                 List<Lead> leads = leadMapByKey.get(sp.Similarity_Key__c);
                 for(Lead ld: leads) {
@@ -116,7 +117,6 @@ public with sharing class LeadAndOppMatchingBatch implements Database.Batchable<
                         mr.Status__c = 'Pending';
                         mr.Type__c = 'Lead Match';
                         ld.Match_Found_Previous_Status__c = ld.Status;    
-                        
                         if (automaticUpdate) {
                             mr.Status__c = 'Confirmed';
                             ld.Status = leadStatusSold; // Update status to "Sold"
