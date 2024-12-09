@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>PropertySalesAIDashboards/xHMDIzVbhtmFZWkIqCSLoqvdZVUHbx</members>
+		<name>Dashboard</name>
+	</types>
+	<types>
+		<members>Market_Insights</members>
+		<name>FlexiPage</name>
+	</types>
+	<types>
+		<members>PropertySalesAIInvestorReports/Investor_Sales_k99</members>
+		<members>PropertySalesAIReports/Average_Sales_Price_of_Lost_Leads_MDQ</members>
+		<members>PropertySalesAIReports/Last_Offer_Made_vs_Sales_Price_I2B</members>
+		<members>PropertySalesAIReports/Lost_Leads_by_Lead_SourceCampaign_kWa</members>
+		<members>PropertySalesAIReports/Lost_Opportunities_by_Lead_Source_3Mq</members>
+		<members>PropertySalesAIReports/Lost_Opportunities_by_Offer_Difference_wBw</members>
+		<members>PropertySalesAIReports/Properties_SalesAI_History_Report_n87</members>
+		<members>PropertySalesAIReports/Property_SalesAI_Matches_cTX</members>
+		<members>PropertySalesAIReports/Property_SalesAI_Records_Last_7_Days_uS4</members>
+		<members>PropertySalesAIReports/Property_Sales_AI_Buyer_Activity_aOL</members>
+		<members>PropertySalesAIReports/Property_Sales_Last_30_Days_DTQ</members>
+		<members>PropertySalesAIReports/Property_Sales_Trends_9eU</members>
+		<members>PropertySalesAIReports/Property_Sales_by_County_Saw</members>
+		<name>Report</name>
+	</types>
+	<version>62.0</version>
+</Package>
