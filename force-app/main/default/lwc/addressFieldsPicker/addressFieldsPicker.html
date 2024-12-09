@@ -1,10 +1,10 @@
 <template>
     <lightning-spinner lwc:if={loading} alternative-text="Loading..."></lightning-spinner>
-    <p class="slds-var-m-bottom_medium">Select the {objectApiName} Address Fields which should be matched to the Property Sales.AI Data Fields</p>
+    <p class="slds-var-m-bottom_medium">Select the {objectApiName} object address fields to compare against sold county subscription data</p>
 
     <div class="slds-grid slds-m-vertical_small">
         <div class="slds-col slds-size_1-of-2">
-            <p class="slds-text-heading_small bold">Property Sales.AI Data Fields</p>
+            <p class="slds-text-heading_small bold">Property Sales AI Data Fields</p>
         </div>
         <div class="slds-col slds-size_1-of-2">
             <p class="slds-text-heading_small bold">{objectApiName} Address Fields</p>
@@ -17,30 +17,39 @@
             <label class="slds-form-element__label slds-p-left_medium">Street</label>
         </div>
         <div class="slds-col slds-size_1-of-2">
-            <c-dynamic-combo-box
-                variant="label-hidden"
-                data-id="street"
-                placeholder="Search Street..."
-                options={addressFields}
-                selected-value={streetFieldValue}
-                selected-label={streetFieldLabel}
-            ></c-dynamic-combo-box>
+            <template lwc:if={wizardMode}>
+                <c-dynamic-combo-box 
+                    variant="label-hidden"
+                    data-id="street"
+                    placeholder="Search Street..."
+                    options={addressFields}
+                    selected-value={streetFieldValue}
+                    selected-label={streetFieldLabel}
+                ></c-dynamic-combo-box>
+            </template>
+            <template lwc:else>
+                <lightning-input variant="label-hidden" disabled value={streetFieldValue}></lightning-input>
+            </template>
         </div>
         <hr class="slds-col slds-size_2-of-2 slds-m-vertical_small separator"></hr>
-        <!-- Repeat for other fields like City, State, Zip -->
-        <!-- Example for City -->
+        
         <div class="slds-col slds-size_1-of-2">
             <label class="slds-form-element__label slds-p-left_medium">City</label>
         </div>
         <div class="slds-col slds-size_1-of-2">
-            <c-dynamic-combo-box
-                variant="label-hidden"
-                data-id="city"
-                placeholder="Search City..."
-                options={addressFields}
-                selected-value={cityFieldValue}
-                selected-label={cityFieldLabel}
-            ></c-dynamic-combo-box>
+            <template lwc:if={wizardMode}>
+                <c-dynamic-combo-box
+                    variant="label-hidden"
+                    data-id="city"
+                    placeholder="Search City..."
+                    options={addressFields}
+                    selected-value={cityFieldValue}
+                    selected-label={cityFieldLabel}
+                ></c-dynamic-combo-box>
+            </template>
+            <template lwc:else>
+                <lightning-input variant="label-hidden" disabled value={cityFieldValue}></lightning-input>
+            </template>
         </div>
         <hr class="slds-col slds-size_2-of-2 slds-m-vertical_small separator"></hr>
 
@@ -48,14 +57,19 @@
             <label class="slds-form-element__label slds-p-left_medium">State</label>
         </div>
         <div class="slds-col slds-size_1-of-2">
-            <c-dynamic-combo-box
-                variant="label-hidden"
-                data-id="state"    
-                placeholder="Search State..."
-                options={addressFields}
-                selected-value={stateFieldValue}
-                selected-label={stateFieldLabel}
-            ></c-dynamic-combo-box>
+            <template lwc:if={wizardMode}>
+                <c-dynamic-combo-box
+                    variant="label-hidden"
+                    data-id="state"    
+                    placeholder="Search State..."
+                    options={addressFields}
+                    selected-value={stateFieldValue}
+                    selected-label={stateFieldLabel}
+                ></c-dynamic-combo-box>
+            </template>
+            <template lwc:else>
+                <lightning-input variant="label-hidden" disabled value={stateFieldValue}></lightning-input>
+            </template>
         </div>
         
         <hr class="slds-col slds-size_2-of-2 slds-m-vertical_small separator"></hr>
@@ -63,19 +77,37 @@
             <label class="slds-form-element__label slds-p-left_medium">PostalCode</label>
         </div>
         <div class="slds-col slds-size_1-of-2">
-            <c-dynamic-combo-box
-                variant="label-hidden"
-                data-id="postalCode"
-                placeholder="Search PostalCode..."
-                options={addressFields}
-                selected-value={zipFieldValue}
-                selected-label={zipFieldLabel}
-            ></c-dynamic-combo-box>
+            <template lwc:if={wizardMode}>
+                <c-dynamic-combo-box
+                    variant="label-hidden"
+                    data-id="postalCode"
+                    placeholder="Search PostalCode..."
+                    options={addressFields}
+                    selected-value={zipFieldValue}
+                    selected-label={zipFieldLabel}
+                ></c-dynamic-combo-box>            
+            </template>
+            <template lwc:else>
+                <lightning-input variant="label-hidden" disabled value={zipFieldValue}></lightning-input>
+            </template>
         </div>
     </div>
 
     <div class="slds-m-top_medium slds-grid slds-grid_align-end">
         <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
-        <lightning-button label="Save" variant="brand" class="slds-m-left_small" onclick={handleSave}></lightning-button>
+        <template lwc:if={wizardMode}>
+            <lightning-button label="Save" variant="brand" class="slds-m-left_small" name="openConfirmation" onclick={openConfirmationDialog}></lightning-button>
+        </template>
     </div>
+
+    <c-confirmation-dialog title='Are you sure?'
+                           message='Address field selection is locked upon completion of the Property Sales AI setup wizard'
+                           confirm-label='Save'
+                           cancel-label='Cancel'
+                           visible={isDialogVisible}
+                           original-message={originalMessage}
+                           name="confirmModal"
+                           oncancel={handleClick}
+                           onconfirm={handleClick}>
+    </c-confirmation-dialog>
 </template>

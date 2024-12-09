@@ -8,13 +8,13 @@ public with sharing class PropertySalesController {
     
         // Construct the dynamic SOQL query using the variables
         String query = 'SELECT Id, Property_Address__c, ' +
-                       'Lead__r.' + leadStreet + ', ' +
-                       'Opportunity__r.' + oppStreet + ', ' +
-                       'Lead__c, Opportunity__c ' +
-                       'FROM Property_SalesAI_Match__c ' +
-                       'WHERE Property_SalesAI_History__c = :historyId ' +
-                       'AND Status__c = \'Pending\' ' +
-                       'WITH SECURITY_ENFORCED';
+                        'Lead__r.' + String.escapeSingleQuotes(leadStreet) + ', ' +
+                        'Opportunity__r.' + String.escapeSingleQuotes(oppStreet) + ', ' +
+                        'Lead__c, Opportunity__c ' +
+                        'FROM Property_SalesAI_Match__c ' +
+                        'WHERE Property_SalesAI_History__c = :historyId ' +
+                        'AND Status__c = \'Pending\' ' +
+                        'WITH SECURITY_ENFORCED';
     
         // Execute the query dynamically
         List<Property_SalesAI_Match__c> matches = Database.query(query);
@@ -38,7 +38,7 @@ public with sharing class PropertySalesController {
     
     @AuraEnabled
     public static void markAsGoodMatches(List<String> matchIds, String historyId) {
-        try {
+        try {    
             // Query all match records using the list of matchIds
             List<Property_SalesAI_Match__c> matchRecords = [
                 SELECT Id, Lead__c, Opportunity__c, Property_SalesAI_History__c
@@ -46,12 +46,16 @@ public with sharing class PropertySalesController {
                 WHERE Id IN :matchIds
                 WITH SECURITY_ENFORCED
             ];
+            if (Schema.sObjectType.Property_SalesAI_Match__c.fields.Status__c.isUpdateable() 
+                && Schema.sObjectType.Property_SalesAI_Match__c.isUpdateable()) {
 
-            for (Property_SalesAI_Match__c matchRecord : matchRecords) {
-                matchRecord.Status__c = 'Confirmed';
+                for (Property_SalesAI_Match__c matchRecord : matchRecords) {
+                    matchRecord.Status__c = 'Confirmed';
+                }
+                update matchRecords;
+            } else {
+                throw new AuraHandledException('Insufficient permissions to update Property_SalesAI_Match__c or Status__c field.');
             }
-
-            update matchRecords;
         } catch (Exception e) {
             System.debug('Error in markAsGoodMatches: ' + e.getStackTraceString());
             throw new AuraHandledException('Unable to mark as good matches: ' + e.getMessage());
@@ -68,13 +72,16 @@ public with sharing class PropertySalesController {
                 WHERE Id IN :matchIds
                 WITH SECURITY_ENFORCED
             ];
+            if (Schema.sObjectType.Property_SalesAI_Match__c.fields.Status__c.isUpdateable() 
+                && Schema.sObjectType.Property_SalesAI_Match__c.isUpdateable()) {
 
-            for (Property_SalesAI_Match__c matchRecord : matchRecords) {
-                matchRecord.Status__c = 'Rejected';
+                for (Property_SalesAI_Match__c matchRecord : matchRecords) {
+                    matchRecord.Status__c = 'Rejected';
+                }
+                update matchRecords;
+            } else {
+                throw new AuraHandledException('Insufficient permissions to update Property_SalesAI_Match__c or Status__c field.');
             }
-
-            update matchRecords;
-
         } catch (Exception e) {
             System.debug('Error in markAsNotMatch: ' + e.getMessage());
             throw new AuraHandledException('Unable to mark as not match: ' + e.getMessage());

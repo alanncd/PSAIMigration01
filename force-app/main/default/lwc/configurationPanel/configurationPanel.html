@@ -10,7 +10,7 @@
                     </c-header>
                     <div class="slds-var-m-vertical_large">
                         <template lwc:if={isDefaultWizard}>
-                            <c-progress-bar progress-percentage={calculatePercentage} setup-name="Property Sales.AI"></c-progress-bar>
+                            <c-progress-bar progress-percentage={calculatePercentage} setup-name="Property Sales AI"></c-progress-bar>
                         </template>
                         <template lwc:if={displayHistoryRecordInfo}>
                             <c-data-summary-card property-sales-history={historyRecord}></c-data-summary-card>
@@ -60,13 +60,14 @@
 
                     <template lwc:if={isConfigureMapping}>
                         <c-address-fields-picker
+                            wizard-mode={wizardMode}
                             object-api-name={stepKey}
                             onsave={handleSave}
                             oncancel={handleBack}>
                         </c-address-fields-picker>
                     </template>
                     <div lwc:if={isDefaultWizard} class="slds-var-m-top_x-large slds-grid slds-grid_align-end">
-                        <lightning-button disabled={disabled} label="Run Property Sales.AI Now" variant="brand" onclick={handleScheduleMatchingLogic}></lightning-button>
+                        <lightning-button disabled={disabled} label="Run Property Sales AI Now" variant="brand" onclick={handleScheduleMatchingLogic}></lightning-button>
                     </div>
                 </div>
             </div>

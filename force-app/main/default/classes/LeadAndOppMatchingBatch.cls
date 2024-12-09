@@ -103,7 +103,6 @@ public with sharing class LeadAndOppMatchingBatch implements Database.Batchable<
 
         for (Property_SalesAI__c sp : customObjects) {
             // Matching Leads
-            system.debug('***'+leadMapByKey);
             if (leadMapByKey.containsKey(sp.Similarity_Key__c)) {
                 List<Lead> leads = leadMapByKey.get(sp.Similarity_Key__c);
                 for(Lead ld: leads) {

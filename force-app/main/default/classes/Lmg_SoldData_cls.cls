@@ -1,52 +1,73 @@
 @RestResource(urlMapping='/LmgPilot/*')
-global class Lmg_SoldData_cls {
+global with sharing class Lmg_SoldData_cls {
  @HttpPost
     global static void receiveData() {
         Result_Subscription__c newResultSubscription = new Result_Subscription__c();
         String bodyReceived = RestContext.request.requestBody.toString();
-        Left_Main_Sold_Data_Setting__mdt metadataRecord = [SELECT Api_Token__c FROM Left_Main_Sold_Data_Setting__mdt WHERE DeveloperName = 'Connection1' LIMIT 1];
+        Left_Main_Sold_Data_Setting__mdt metadataRecord = [SELECT Api_Token__c FROM Left_Main_Sold_Data_Setting__mdt WHERE DeveloperName = 'Connection1' WITH SECURITY_ENFORCED LIMIT 1];
         String validToken = metadataRecord.Api_Token__c;
        try{
         LeadfuzionWrapper tr = (LeadfuzionWrapper)JSON.deserialize(bodyReceived, LeadfuzionWrapper.class);
 
         if(!String.isBlank(tr.custom) && !String.isBlank(validToken) && tr.custom == validToken){
         
-            List<Subscription__c> listSubscriptions = [Select id from Subscription__c where County__c =: tr.county and state__c =: tr.state];
+            List<Subscription__c> listSubscriptions = [Select id from Subscription__c where County__c =: tr.county and state__c =: tr.state WITH SECURITY_ENFORCED];
             
             if(listSubscriptions.size() > 0 && !String.isBlank(tr.county) && (tr.records != Null && tr.records.size() > 0)){
 
                 RestContext.response.statusCode = 200;
                 RestContext.response.responseBody = Blob.valueOf('{"message": "Operation Completed Successfully."}');
-
-                newResultSubscription.Count__c = (String.isBlank(tr.count) || tr.count == null)? null : Decimal.valueOf(tr.count);
-                newResultSubscription.State__c =  tr.state;
-                newResultSubscription.County__c = tr.county;
-                newResultSubscription.Subscription__c = listSubscriptions[0].Id;
-                insert newResultSubscription;
-
+                if (Schema.sObjectType.Result_Subscription__c.isCreateable() &&
+                    Schema.sObjectType.Result_Subscription__c.fields.Count__c.isUpdateable() &&
+                    Schema.sObjectType.Result_Subscription__c.fields.State__c.isUpdateable() &&
+                    Schema.sObjectType.Result_Subscription__c.fields.County__c.isUpdateable() &&
+                    Schema.sObjectType.Result_Subscription__c.fields.Subscription__c.isUpdateable()) {
+                    newResultSubscription.Count__c = (String.isBlank(tr.count) || tr.count == null)? null : Decimal.valueOf(tr.count);
+                    newResultSubscription.State__c =  tr.state;
+                    newResultSubscription.County__c = tr.county;
+                    newResultSubscription.Subscription__c = listSubscriptions[0].Id;
+                    insert as user newResultSubscription;
+                }
                 Lmg_SoldData_bch batchInstance = new Lmg_SoldData_bch(tr.records,newResultSubscription.Id );
                 Database.executeBatch(batchInstance, 2000);
                 
             }else if(listSubscriptions.size() <= 0 && !String.isBlank(tr.county) && (tr.records.size()) > 0){
                 RestContext.response.statusCode = 400;
                 RestContext.response.responseBody = Blob.valueOf('{"message": "State And County Not Subscribed:'+tr.state+' And '+tr.county+'"}');
-				insert insertErrorHandler('Sold Data Issue','County And State Not Subscribed.');
+                if (Schema.sObjectType.ErrorHandlerLmr__c.isCreateable() &&
+                    Schema.sObjectType.ErrorHandlerLmr__c.fields.ProcessName__c.isUpdateable() &&
+                    Schema.sObjectType.ErrorHandlerLmr__c.fields.LogDetail__c.isUpdateable() ) {
+                    insert as user insertErrorHandler('Sold Data Issue','County And State Not Subscribed.');
+                }
             }else{
                 RestContext.response.statusCode = 400;
                 RestContext.response.responseBody = Blob.valueOf('{"message": "Bad Request."}');
-                insert insertErrorHandler('Sold Data Issue','Error With Data.');
-
+                if (Schema.sObjectType.ErrorHandlerLmr__c.isCreateable() &&
+                    Schema.sObjectType.ErrorHandlerLmr__c.fields.ProcessName__c.isUpdateable() &&
+                    Schema.sObjectType.ErrorHandlerLmr__c.fields.LogDetail__c.isUpdateable() ) {
+                    insert as user insertErrorHandler('Sold Data Issue','Error With Data.');
+                }
             }
 
             }else{
                 RestContext.response.statusCode = 400;
                 RestContext.response.responseBody = Blob.valueOf('{"message": "Token not Valid."}');
-                insert insertErrorHandler('Sold Data Issue','Token not Valid.');
+                if (Schema.sObjectType.ErrorHandlerLmr__c.isCreateable() &&
+                    Schema.sObjectType.ErrorHandlerLmr__c.fields.ProcessName__c.isUpdateable() &&
+                    Schema.sObjectType.ErrorHandlerLmr__c.fields.LogDetail__c.isUpdateable() ) {
+                    insert as user insertErrorHandler('Sold Data Issue','Token not Valid.');
+                }
             }
        }catch(Exception e){
         // If newResultSubscription was not inserted, attempt to insert it here
         if (newResultSubscription != null && newResultSubscription.Id == null) {
-            insert newResultSubscription;
+            if (Schema.sObjectType.Result_Subscription__c.isCreateable() &&
+                Schema.sObjectType.Result_Subscription__c.fields.Count__c.isUpdateable() &&
+                Schema.sObjectType.Result_Subscription__c.fields.State__c.isUpdateable() &&
+                Schema.sObjectType.Result_Subscription__c.fields.County__c.isUpdateable() &&
+                Schema.sObjectType.Result_Subscription__c.fields.Subscription__c.isUpdateable()) {
+                insert as user newResultSubscription;
+            }
         }
 
         // Relate file with the record
@@ -56,22 +77,29 @@ global class Lmg_SoldData_cls {
         RestContext.response.responseBody = Blob.valueOf('{"error": "Bad Request: ' + e.getMessage() + '"}');
         System.debug('number: '+e.getLineNumber());
         try{
-            ErrorHandlerLmr__c   transactionLog = new ErrorHandlerLmr__c  (
-                LogDetail__c 	 = e.getStackTraceString() +';'+ '<br/> <strong> Mensaje es: </strong>'+e.getMessage() +';'
+            ErrorHandlerLmr__c transactionLog = new ErrorHandlerLmr__c  (
+                LogDetail__c = e.getStackTraceString() +';'+ '<br/> <strong> Mensaje es: </strong>'+e.getMessage() +';'
                 + '<br/>'+ e.getCause() +';'+ '<br/>'+ e.getTypeName() +';'+ '<br/>' +'Linea es: '+ e.getLineNumber(),
                 ProcessName__c  = 'LeadFuzion'
             );
-            insert transactionLog;}catch(Exception ex){System.debug('Error is: '+ex);}
+            if (Schema.sObjectType.ErrorHandlerLmr__c.isCreateable()) {
+                insert as user transactionLog;
+            }
+        } catch(Exception ex) {
+            System.debug('Error is'+ex);
+        }
            
        }
             
     }
 
     public static ErrorHandlerLmr__c insertErrorHandler(String processName, String logDetail){
-        ErrorHandlerLmr__c errorHanlder = new ErrorHandlerLmr__c();
-        errorHanlder.ProcessName__c = processName;
-        errorHanlder.LogDetail__c = logDetail;
-
+        Left_Main__ErrorHandlerLmr__c errorHanlder = new ErrorHandlerLmr__c();
+        if (Schema.sObjectType.ErrorHandlerLmr__c.fields.ProcessName__c.isUpdateable() &&
+            Schema.sObjectType.ErrorHandlerLmr__c.fields.LogDetail__c.isUpdateable()) {
+            errorHanlder.ProcessName__c = processName;
+            errorHanlder.LogDetail__c = logDetail;
+        }
         return errorHanlder;
     }
     public static void insertBulkRecords(List<LeadfuzionRecord> records,String resultSubscription) {
@@ -127,7 +155,9 @@ global class Lmg_SoldData_cls {
             sales.add(sale);
         }
             propertiesMap.clear();
-            upsert sales External_Id__c;
+            if (Schema.sObjectType.Property_SalesAI__c.isCreateable() && Schema.sObjectType.Property_SalesAI__c.isUpdateable()) {
+                upsert sales External_Id__c;
+            }
             sales.clear();
     }
 

@@ -167,25 +167,25 @@ public with sharing class LeadAndOppMatchingBatchHelper {
         } 
         // Scenario 1: If setup is not complete
         if (!setupComplete) {
-            email.setSubject('Property Sales.AI not fully setup.');
+            email.setSubject('Property Sales AI not fully setup.');
             email.setPlainTextBody(
-                'The Property Sales.AI matching algorithm could not successfully execute. ' +
+                'The Property Sales AI matching algorithm could not successfully execute. ' +
                 'There are some required configuration settings that need to be updated. ' +
-                'In order to complete the setup, please login to the Left Main application and go to the Property Sales.AI Setup tab. ' +
+                'In order to complete the setup, please login to the Left Main application and go to the Property Sales AI Setup tab. ' +
                 'Please make sure all required fields are properly configured.\n\n' +
                 'If you need any assistance, please reach out to Left Main REI support at support@leftmainrei.com.\n\n' +
                 'Thank you,\n' +
                 'Left Main REI'
             );
         } else { // Scenario 2: If batch job completes successfully
-            String emailBody = 'The Property Sales.AI matching algorithm completed execution at ' + DateTime.now().format('yyyy-MM-dd HH:mm:ss') + '.\n\n' +
+            String emailBody = 'The Property Sales AI matching algorithm completed execution at ' + DateTime.now().format('yyyy-MM-dd HH:mm:ss') + '.\n\n' +
                                 'Please see the following results:\n\n' +
                                 'Matched Leads: ' + matchedLeads + '\n' +
                                 'Matched Opportunities: ' + matchedOpportunities + '\n\n';
             
             // If there are errors, include them in the email body
             if (!String.isBlank(leadErrors) || !String.isBlank(opportunityErrors)) {
-                emailBody += 'Property Sales.AI ran into some errors. Please see the details below:\n\n';
+                emailBody += 'Property Sales AI ran into some errors. Please see the details below:\n\n';
                 
                 if (!String.isBlank(leadErrors)) {
                     emailBody += 'Lead Errors:\n' + leadErrors  + '\n';
@@ -200,7 +200,7 @@ public with sharing class LeadAndOppMatchingBatchHelper {
                             'Thank you,\n' +
                             'Left Main REI';
                             
-            email.setSubject('Property Sales.AI matching algorithm summary');
+            email.setSubject('Property Sales AI matching algorithm summary');
             email.setPlainTextBody(emailBody);
         }
         // Send the email

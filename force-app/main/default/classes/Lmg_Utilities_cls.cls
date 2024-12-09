@@ -48,8 +48,9 @@ public with sharing class Lmg_Utilities_cls {
         contentVersionFile.VersionData = csvBlob;
         contentVersionFile.FirstPublishLocationId = recordId;         // Relate to record (parentId)
         contentVersionFile.IsMajorVersion = true;
-        insert contentVersionFile;
-
+        if (Schema.sObjectType.ContentVersion.isCreateable()) {
+            insert contentVersionFile;
+        }
     }
 
 

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Property_Sales_History_Duration__c</fullName>
-    <description>To define the scope of Property Sales AI records to include in the matching logic, this number is the # of days in the past (based on the property sold date) we want to query.</description>
+    <fullName>Leads_Not_Processed__c</fullName>
     <externalId>false</externalId>
-    <label>Property Sales History Duration</label>
+    <label>Leads Not Processed</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>

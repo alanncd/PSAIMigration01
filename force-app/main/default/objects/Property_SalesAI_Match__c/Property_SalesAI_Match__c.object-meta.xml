@@ -153,7 +153,7 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Property Sales.AI Match</label>
+    <label>Property Sales AI Match</label>
     <nameField>
         <displayFormat>AIMatch-{000000}</displayFormat>
         <label>Property Sales Match Name</label>

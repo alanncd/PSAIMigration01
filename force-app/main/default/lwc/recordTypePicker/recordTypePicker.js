@@ -32,8 +32,8 @@ export default class RecordTypePicker extends LightningElement {
 
     get header() {
         return this.objectApiName === 'Lead' 
-        ? 'Select Lead Record Types to be included in address matching for Property Sales.AI. You must include at least one record type:'
-        : 'Select Opportunity Record Types to be included in address matching for Property Sales.AI. You must include at least one record type.'; 
+        ? 'Select Lead Record Types to be included in address matching for Property Sales AI. You must include at least one record type:'
+        : 'Select Opportunity Record Types to be included in address matching for Property Sales AI. You must include at least one record type.'; 
     }
 
     get selectedRecordTypeIds() {
@@ -41,7 +41,11 @@ export default class RecordTypePicker extends LightningElement {
     }
 
     get comboboxLabel() {
+        if (this.objectApiName == 'Lead') {
         return `Include ${this.objectApiName}s that were created or updated in the last`;
+        } else {
+            return `Include Opportunities that were created or updated in the last`;
+        }
     }
 
     @wire(getRecordTypes, { objectApiName: '$objectApiName' })

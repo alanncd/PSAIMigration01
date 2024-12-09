@@ -140,6 +140,8 @@ public with sharing class ConfigurationController {
                 upsert settings;
                 String cronExp = getCronExpressionFromDay(settings.Matching_Day__c);
                 System.schedule('Matching logic weekly run', cronExp, new LeadAndOppMatchingScheduler());    
+               	Lmg_AddressKeyIntegration_cls.scheduleNightlyBatch();
+
             } else {
                 Exception ex = new AuraHandledException('No access to modify custom setting');
                 ex.setMessage('No access to modify custom setting');

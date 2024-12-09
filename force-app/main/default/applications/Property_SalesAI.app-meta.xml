@@ -10,7 +10,7 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
-    <label>Property Sales.AI</label>
+    <label>Property Sales AI</label>
     <navType>Standard</navType>
     <tabs>Property_SalesAI_Administration_Panel</tabs>
     <tabs>Property_SalesAI__c</tabs>

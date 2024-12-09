@@ -288,7 +288,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Property Sales.AI History Record Page</masterLabel>
+    <masterLabel>Property Sales AI History Record Page</masterLabel>
     <parentFlexiPage>flexipage__default_rec_L</parentFlexiPage>
     <sobjectType>Property_SalesAI_History__c</sobjectType>
     <template>

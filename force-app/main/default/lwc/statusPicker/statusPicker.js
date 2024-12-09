@@ -26,8 +26,8 @@ export default class StatusPicker extends LightningElement {
 
     get header() {
         return this.objectApiName === 'Lead' 
-            ? 'Select Lead Statuses to be included in address matching for Property Sales.AI. You must include at least one status.'
-            : 'Select Opportunity Stages to be included in address matching for Property Sales.AI. You must include at least one stage.'; 
+            ? 'Select Lead Statuses to be included in address matching for Property Sales AI. You must include at least one status.'
+            : 'Select Opportunity Stages to be included in address matching for Property Sales AI. You must include at least one stage.'; 
     }
     // Getter for selected rows in the datatable
     get selectedStatusIds() {

@@ -447,6 +447,10 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Property_Sales_AI_Sign_Up</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Property__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>

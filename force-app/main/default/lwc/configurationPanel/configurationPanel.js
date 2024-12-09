@@ -109,7 +109,7 @@ export default class ConfigurationPanel extends LightningElement {
             case 'Schedule':
                 subSteps.push({
                     actionKey: 'scheduleMatching',
-                    label: this.wizardMode ? 'Schedule Property Sales.AI Algorithm Execution' : 'Modify Property Sales.AI Algorithm Execution', 
+                    label: this.wizardMode ? 'Schedule Property Sales AI Algorithm Execution' : 'Modify Property Sales AI Algorithm Execution', 
                     buttonLabel: this.wizardMode ? 'Add Schedule' : 'Modify Schedule',
                     isCompleted: data.Matching_Day /*&& data.Property_Sales_History_Duration*/ ? true : false
                 });
@@ -211,7 +211,7 @@ export default class ConfigurationPanel extends LightningElement {
     }
 
     get headerSubtitle() {
-        return 'Property Sales.AI'
+        return 'Property Sales AI'
     }
 
     get calculatePercentage() { 

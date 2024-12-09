@@ -6,6 +6,7 @@ import getCustomSettingValues from '@salesforce/apex/ConfigurationController.get
 
 export default class AddressFieldMatcher extends LightningElement {
     @api objectApiName;  // Object name passed from the parent component (either Lead or Opportunity)
+    @api wizardMode;
     loading = true;
     // Field values for the combobox selections
     streetFieldValue;
@@ -22,7 +23,8 @@ export default class AddressFieldMatcher extends LightningElement {
     addressFields = [];
     
     alreadyFetched = false;
-   
+    isDialogVisible = false;
+
     getDynamicComboboxValue(combo) {
         return this.template.querySelector(`c-dynamic-combo-box[data-id=${combo}]`).getSelectedValue();
     }
@@ -83,7 +85,25 @@ export default class AddressFieldMatcher extends LightningElement {
             };
         });   
     }  
-    
+
+    openConfirmationDialog(event) {
+        if(event.target.name === 'openConfirmation'){
+            this.isDialogVisible = true;
+        }
+    }
+
+    handleClick(event) { 
+        console.log(JSON.stringify(event.target.name));
+        if(event.target.name === 'confirmModal'){
+            if(event.detail !== 1){
+                if(event.detail.status === 'confirm') {
+                    this.handleSave();
+                } 
+                this.isDialogVisible = false;
+            }
+        }
+    }
+
     handleSave() {
         this.loading = true;  // Show a loading spinner
         this.streetFieldValue = this.getDynamicComboboxValue('street');

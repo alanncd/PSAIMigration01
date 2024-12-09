@@ -40,7 +40,7 @@ public with sharing class PropertySalesAIMatchTriggerHandler {
             Property_SalesAI_Match__c oldMatch = oldMap.get(match.Id);
             
             if (oldMatch.Status__c == 'Confirmed' && match.Status__c == 'Rejected') {
-                String subject = 'Updated by Property Sales.AI - Confirmed to Rejected';
+                String subject = 'Updated by Property Sales AI - Confirmed to Rejected';
                 String descr = ' when ' + userName + ' rejected previously confirmed match found between';
 
                 if (match.Lead__c != null && leadMap.containsKey(match.Lead__c)) {
@@ -76,13 +76,13 @@ public with sharing class PropertySalesAIMatchTriggerHandler {
             }
         }
         // Perform bulk updates
-        if (!leadsToUpdate.isEmpty()) {
+        if (!leadsToUpdate.isEmpty() && Schema.sObjectType.Lead.isUpdateable()) {
             update leadsToUpdate;
         }
-        if (!oppsToUpdate.isEmpty()) {
+        if (!oppsToUpdate.isEmpty() && Schema.sObjectType.Opportunity.isUpdateable()) {
             update oppsToUpdate;
         }
-        if (!tasksToInsert.isEmpty()) {
+        if (!tasksToInsert.isEmpty() && Schema.sObjectType.Task.isCreateable()) {
             insert tasksToInsert;
         }
 
@@ -140,10 +140,10 @@ public with sharing class PropertySalesAIMatchTriggerHandler {
             if ((!isInsert && match.Status__c != oldMatch.Status__c && match.Status__c == 'Confirmed') ||
                 (isInsert && match.Status__c == 'Confirmed')) {
                 String subject = isInsert ? 
-                    'Updated by Property Sales.AI Automation' : 
-                    'Updated by Property Sales.AI - Confirmed';
+                    'Updated by Property Sales AI Automation' : 
+                    'Updated by Property Sales AI - Confirmed';
                 String descr = isInsert ? 
-                    ' by an automated process within the Property Sales.AI app.' : 
+                    ' by an automated process within the Property Sales AI app.' : 
                     ' when ' + userName  + ' confirmed potential match found between';
                 if (match.Lead__c != null && leadMap.containsKey(match.Lead__c)) {
                     // Update the related Lead's status
@@ -191,13 +191,13 @@ public with sharing class PropertySalesAIMatchTriggerHandler {
             }
         }
         // Perform bulk updates
-        if (!isInsert && !leadsToUpdate.isEmpty()) {
+        if (!isInsert && !leadsToUpdate.isEmpty() && Schema.sObjectType.Lead.isUpdateable()) {
             update leadsToUpdate;
         }
-        if (!isInsert && !oppsToUpdate.isEmpty()) {
+        if (!isInsert && !oppsToUpdate.isEmpty() && Schema.sObjectType.Opportunity.isUpdateable()) {
             update oppsToUpdate;
         }
-        if (!tasksToInsert.isEmpty()) {
+        if (!tasksToInsert.isEmpty() && Schema.sObjectType.Task.isCreateable()) {
             insert tasksToInsert;
         }
     }
