@@ -1,0 +1,173 @@
+<template>
+    <div class="slds-box slds-theme_default slds-is-relative" >
+        <img src={cloudsUrl} alt="Illustration" class="slds-image slds-is-absolute background-image" /> 
+        <div class="on-front slds-p-left_xx-large slds-p-horizontal_large" >
+            <!-- Header Section -->
+            <div class="slds-grid slds-grid_align-left slds-m-bottom_medium slds-m-left_xx-large">
+                <img src={logoUrl} alt="Left Main REI" class="slds-image" /> 
+            </div>
+            <div class="slds-text-align_center slds-m-vertical_large slds-m-horizontal_xx-large">
+                <!-- Progress Indicator Section -->
+                <div class="slds-m-bottom_large">
+                    <c-property-sales-a-i-signup-indicator
+                        current-step={currentStep}
+                        sub-steps={subSteps}>
+                    </c-property-sales-a-i-signup-indicator>
+                </div>
+                <!-- Content Section -->
+                <!--step 1-->
+                <template lwc:if={isStep1}>
+                    <h1 class="slds-text-heading_large slds-font-weight_bold slds-m-bottom_small">
+                        Unlock Local Market Data Right in Your CRM
+                    </h1>
+                    <p class="slds-text-body_regular slds-m-bottom_medium">
+                        Automatically close out leads and opportunities when properties are recorded by the county with Property Sales AI. <br>
+                        Check it out!
+                    </p>
+                    <iframe 
+                        src="https://player.vimeo.com/video/1036437030?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+                        style="width:560px;height:315px;" title="Property Sales AI Demo">
+                    </iframe>
+                </template>
+                <!--step 2-->
+                <template lwc:if={isStep2}>
+                    <h1 class="slds-text-heading_large slds-font-weight_bold slds-m-bottom_small">
+                        In what way do you hope to improve business the most by using Property Sales AI?
+                    </h1>
+                    <p class="slds-text-body_regular slds-m-bottom_medium">
+                        We'll help you achieve more with less and want to know what matters most to you.
+                    </p>
+                    <div class="slds-grid slds-wrap slds-m-horizontal_xx-large slds-m-top_medium">
+                        <div class="slds-size_1-of-3"></div>
+                        <div class="slds-text-align_left slds-size_1-of-3 ">
+                            <template for:each={expectations} for:item="expectation">
+                                <lightning-input 
+                                    key={expectation.value} 
+                                    class="slds-m-bottom_medium"
+                                    type="checkbox"
+                                    name="expectations"
+                                    label={expectation.label}
+                                    value={expectation.value}
+                                    checked={expectation.checked}
+                                    onchange={handleCheckboxChange}>
+                                </lightning-input>                 
+                            </template>
+                            <template lwc:if={showOtherExpectationsTextField}>
+                                <lightning-input 
+                                    variant="label-hidden"
+                                    value={otherExpectationsValue} 
+                                    onchange={handleOtherTextExpectationsChange}>
+                                </lightning-input>
+                            </template>   
+                        </div>
+                    </div>
+                </template>
+                <!--step 3-->
+                <template lwc:if={isStep3}>
+                    <h1 class="slds-text-heading_large slds-font-weight_bold slds-m-bottom_small">
+                        What is your primary team function?
+                    </h1>
+                    <p class="slds-text-body_regular slds-m-bottom_medium">
+                        We look forward to tailoring features and recommendations based on your needs.
+                    </p>                                     
+                    <div class="slds-grid slds-wrap slds-m-horizontal_xx-large slds-m-top_medium">
+                        <div class="slds-size_1-of-3"></div>
+                        <div class="slds-text-align_left slds-size_1-of-3">
+                            <lightning-radio-group 
+                                name="functions"
+                                label="Radio Group"
+                                variant="label-hidden"
+                                options={teamFunctionOptions}
+                                value={selectedFunction}
+                                onchange={handleFunctionRadioChange}
+                                type="radio">
+                            </lightning-radio-group>
+                            <template lwc:if={showOtherFunctionsTextField}>
+                                <lightning-input
+                                    class="slds-m-top_small"
+                                    variant="label-hidden"
+                                    value={otherFunctionsValue} 
+                                    onchange={handleOtherTextFunctionsChange}>
+                                </lightning-input>
+                            </template>   
+                        </div>
+                    </div>
+                </template>
+                <!--step 4-->
+                <template lwc:if={isStep4}>
+                    <h1 class="slds-text-heading_large slds-font-weight_bold slds-m-bottom_small">
+                        Where did you first hear about Property Sales AI?
+                    </h1>
+                    <p class="slds-text-body_regular slds-m-bottom_medium">
+                        We’ll help you achieve more with less and want to know what matters most to you.
+                    </p>                    
+                    <div class="slds-grid slds-wrap slds-m-horizontal_xx-large slds-m-top_medium">
+                        <div class="slds-size_1-of-3"></div>
+                        <div class="slds-text-align_left slds-size_1-of-3 ">
+                            <template for:each={places} for:item="place">
+                                <lightning-input 
+                                    key={place.value} 
+                                    class="slds-m-bottom_medium"
+                                    type="checkbox"
+                                    name="places"
+                                    label={place.label}
+                                    value={place.value}
+                                    checked={place.checked}
+                                    onchange={handleCheckboxChange}>
+                                </lightning-input>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+                <!--step 5-->
+                <template lwc:if={isStep5}>
+                    <h1 class="slds-text-heading_large slds-font-weight_bold slds-m-bottom_small">
+                        Ready to Sign Up?                    
+                    </h1>
+                    <p class="slds-text-body_regular slds-m-bottom_medium">
+                        Click the button below to begin the subscription process. 
+                    </p>                    
+                    <div class="slds-m-bottom_large">
+                        <c-home-green-button label="Count Me In!" size="big" onclick={handleCountMeIn}></c-home-green-button>
+                    </div>
+                    <div class="slds-grid slds-wrap slds-m-horizontal_xx-large slds-m-top_medium">                  
+                        <div class="slds-size_3-of-8"></div>
+                        <div class="slds-size_2-of-8">
+                            <h1 class="slds-text-heading_large slds-font-weight_bold slds-m-bottom_small">
+                                What Happens Next?
+                            </h1>  
+                            <ol class="slds-text-align_left slds-list_ordered">
+                                <li class="slds-item slds-m-bottom_medium">
+                                    Your Customer Success Specialist will contact you to confirm your preferences and schedule a 45-minute onboarding session.
+                                </li>
+                                <li class="slds-item slds-m-bottom_medium">
+                                    You will receive an invoice for preferred county and market data point subscriptions.
+                                </li>
+                                <li class="slds-item"> 
+                                    Setup will be a breeze with the Property Sales AI Desk Reference and setup wizard.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </template>
+
+                 <!-- Footer Section -->
+                <div class="slds-grid slds-m-top_small slds-align_absolute-center">
+                    <template lwc:if={isStep1}>
+                    </template>
+                    <template lwc:else>
+                        <c-home-green-button label="< Previous" onclick={handlePrevious}></c-home-green-button>
+                    </template>
+                    <template lwc:if={isStep5}>
+                    </template>
+                    <template lwc:else>
+                        <c-home-green-button class="slds-m-left_small" label="Next >" onclick={handleNext}></c-home-green-button>
+                    </template>
+
+                </div>
+            </div>           
+        </div>
+    </div>
+</template>

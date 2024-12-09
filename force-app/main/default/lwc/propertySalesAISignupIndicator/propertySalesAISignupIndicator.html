@@ -1,0 +1,38 @@
+<template>
+    <div class="slds-progress">
+        <ol class="slds-progress__list">
+            <template for:each={subSteps} for:item="step">
+                <li class={step.cssClass} key={step.label}>
+                    <template lwc:if={step.isFullyCompleted}>
+                        <span
+                            class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success"
+                            title="Complete"
+                        >
+                            <lightning-icon
+                                class="green-icon"
+                                icon-name="utility:success"
+                                alternative-text="Success"
+                                size="xx-small"
+                            ></lightning-icon>
+                        </span>
+                    </template>
+                    <template lwc:else>
+                        <div class="slds-progress__marker"></div>
+                    </template>
+                </li>
+            </template>
+        </ol>
+        <div
+            class="slds-progress-bar slds-progress-bar_x-small"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow={progressValue}
+            aria-label="Progress bar for steps"
+            role="progressbar"
+        >
+            <span class="slds-progress-bar__value" style={progressBarStyle}>
+                <span class="slds-assistive-text">Progress: {progressValue}%</span>
+            </span>
+        </div>
+    </div>
+</template>

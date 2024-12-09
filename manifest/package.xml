@@ -19,6 +19,8 @@
 		<members>PropertySalesAIMatchTriggerHandlerTest</members>
 		<members>PropertySalesController</members>
 		<members>PropertySalesControllerTest</members>
+		<members>SignUpController</members>
+		<members>SignUpControllerTest</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
@@ -30,6 +32,9 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>Lead.Match_Found_Previous_Status__c</members>
+		<members>Lead.Similarity_Key__c</members>
+		<members>Left_Main_Sold_Data_Setting__mdt.Api_Token__c</members>
 		<members>Lmr_Metric__c.Detail__c</members>
 		<members>Lmr_Metric__c.External_Id__c</members>
 		<members>Lmr_Metric__c.Leads_Not_Processed__c</members>
@@ -38,13 +43,123 @@
 		<members>Lmr_Metric__c.Opportunities_Processed__c</members>
 		<members>Lmr_Metric__c.Properties_Not_Processed__c</members>
 		<members>Lmr_Metric__c.Properties_Processed__c</members>
+		<members>Opportunity.Match_Found_Previous_Stage__c</members>
+		<members>Opportunity.Similarity_Key__c</members>
+		<members>Property_SalesAI_History__c.Finish_Time__c</members>
+		<members>Property_SalesAI_History__c.Lead_Errors__c</members>
+		<members>Property_SalesAI_History__c.Matched_Leads__c</members>
+		<members>Property_SalesAI_History__c.Matched_Opportunities__c</members>
+		<members>Property_SalesAI_History__c.Opportunity_Errors__c</members>
+		<members>Property_SalesAI_History__c.Property_SalesAI_Errors__c</members>
+		<members>Property_SalesAI_History__c.Rejected_Leads__c</members>
+		<members>Property_SalesAI_History__c.Rejected_Opportunities__c</members>
+		<members>Property_SalesAI_History__c.Short_Error_Message__c</members>
+		<members>Property_SalesAI_History__c.Start_Time__c</members>
+		<members>Property_SalesAI_History__c.Status__c</members>
+		<members>Property_SalesAI_History__c.Unconfirmed_Leads__c</members>
+		<members>Property_SalesAI_History__c.Unconfirmed_Opportunities__c</members>
+		<members>Property_SalesAI_History__c.Updated_Leads__c</members>
+		<members>Property_SalesAI_History__c.Updated_Opportunities__c</members>
+		<members>Property_SalesAI_Match__c.Buyer_First_Name__c</members>
+		<members>Property_SalesAI_Match__c.Buyer_Last_Name__c</members>
+		<members>Property_SalesAI_Match__c.Buyer_Mailing_Address__c</members>
+		<members>Property_SalesAI_Match__c.Lead__c</members>
+		<members>Property_SalesAI_Match__c.Opportunity__c</members>
+		<members>Property_SalesAI_Match__c.Previous_Seller_Mailing_Address__c</members>
+		<members>Property_SalesAI_Match__c.Previous_Seller__c</members>
+		<members>Property_SalesAI_Match__c.Property_Address__c</members>
+		<members>Property_SalesAI_Match__c.Property_SalesAI_History__c</members>
+		<members>Property_SalesAI_Match__c.Property_SalesAI__c</members>
+		<members>Property_SalesAI_Match__c.Property_Zip_Code__c</members>
+		<members>Property_SalesAI_Match__c.RecordType__c</members>
+		<members>Property_SalesAI_Match__c.Recording_Date__c</members>
+		<members>Property_SalesAI_Match__c.Sales_Price__c</members>
+		<members>Property_SalesAI_Match__c.Seller_First_Name__c</members>
+		<members>Property_SalesAI_Match__c.Seller_Last_Name__c</members>
+		<members>Property_SalesAI_Match__c.Status__c</members>
+		<members>Property_SalesAI_Match__c.Taxed_Assessment_Value__c</members>
+		<members>Property_SalesAI_Match__c.Type__c</members>
+		<members>Property_SalesAI_Settings__c.AutomaticUpdate__c</members>
+		<members>Property_SalesAI_Settings__c.IsSetupComplete__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Address_City__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Address_PostalCode__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Address_State__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Address_Street__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Advanced_SOQL__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_History_Duration__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Record_Types__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Status_2__c</members>
+		<members>Property_SalesAI_Settings__c.Lead_Status__c</members>
+		<members>Property_SalesAI_Settings__c.Matched_Lead_Reason_Field__c</members>
+		<members>Property_SalesAI_Settings__c.Matched_Lead_Reason__c</members>
+		<members>Property_SalesAI_Settings__c.Matched_Lead_Status__c</members>
+		<members>Property_SalesAI_Settings__c.Matched_Opportunity_Reason_Field__c</members>
+		<members>Property_SalesAI_Settings__c.Matched_Opportunity_Reason__c</members>
+		<members>Property_SalesAI_Settings__c.Matched_Opportunity_Stage__c</members>
+		<members>Property_SalesAI_Settings__c.Matching_Day__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Address_City__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Address_PostalCode__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Address_State__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Address_Street__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Advanced_SOQL__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_History_Duration__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Record_Types__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Stage_2__c</members>
+		<members>Property_SalesAI_Settings__c.Opportunity_Stage__c</members>
+		<members>Property_SalesAI_Settings__c.Property_Sales_History_Duration__c</members>
+		<members>Property_SalesAI__c.Buyer_First_Name__c</members>
+		<members>Property_SalesAI__c.Buyer_Last_Name__c</members>
+		<members>Property_SalesAI__c.Buyer_Mailing_Address__c</members>
+		<members>Property_SalesAI__c.City__c</members>
+		<members>Property_SalesAI__c.County__c</members>
+		<members>Property_SalesAI__c.Custom_Data__c</members>
+		<members>Property_SalesAI__c.Estimated_Value__c</members>
+		<members>Property_SalesAI__c.External_Id__c</members>
+		<members>Property_SalesAI__c.Job_ID__c</members>
+		<members>Property_SalesAI__c.Owner_Occupant__c</members>
+		<members>Property_SalesAI__c.Previous_Seller_Mailing_Address__c</members>
+		<members>Property_SalesAI__c.Previous_Seller__c</members>
+		<members>Property_SalesAI__c.Property_Address__c</members>
+		<members>Property_SalesAI__c.Property__c</members>
+		<members>Property_SalesAI__c.Recording_Date__c</members>
+		<members>Property_SalesAI__c.Sales_Price__c</members>
+		<members>Property_SalesAI__c.Seller_First_Name__c</members>
+		<members>Property_SalesAI__c.Seller_Last_Name__c</members>
+		<members>Property_SalesAI__c.Similarity_Key__c</members>
+		<members>Property_SalesAI__c.State__c</members>
+		<members>Property_SalesAI__c.Status__c</members>
+		<members>Property_SalesAI__c.Street__c</members>
+		<members>Property_SalesAI__c.Subscription_Id__c</members>
+		<members>Property_SalesAI__c.Subscription_Results__c</members>
+		<members>Property_SalesAI__c.Taxed_Assessed_Value__c</members>
+		<members>Property_SalesAI__c.Zip_Code__c</members>
+		<members>Property__c.City__c</members>
+		<members>Property__c.County__c</members>
+		<members>Property__c.ExternalId__c</members>
+		<members>Property__c.Similarity_Key__c</members>
+		<members>Property__c.State__c</members>
+		<members>Property__c.Street__c</members>
+		<members>Property__c.Zip_Code__c</members>
+		<members>Result_Subscription__c.Count__c</members>
+		<members>Result_Subscription__c.County__c</members>
+		<members>Result_Subscription__c.State__c</members>
+		<members>Result_Subscription__c.Subscription__c</members>
+		<members>Similarity_Key_Setting__c.Env_Mode__c</members>
+		<members>Similarity_Key_Setting__c.Size_Lead__c</members>
+		<members>Similarity_Key_Setting__c.Size_Opportunity__c</members>
+		<members>Similarity_Key_Setting__c.Size_Properties__c</members>
+		<members>Subscription__c.County__c</members>
+		<members>Subscription__c.State__c</members>
 		<name>CustomField</name>
 	</types>
 	<types>
+		<members>Left_Main_SimilarityKey_Setting.Dev</members>
+		<members>Left_Main_SimilarityKey_Setting.Production</members>
 		<members>Left_Main_Sold_Data_Setting.Connection1</members>
 		<name>CustomMetadata</name>
 	</types>
 	<types>
+		<members>Left_Main_SimilarityKey_Setting__mdt</members>
 		<members>Left_Main_Sold_Data_Setting__mdt</members>
 		<members>Lmr_Metric__c</members>
 		<members>Property_SalesAI_History__c</members>
@@ -53,6 +168,7 @@
 		<members>Property_SalesAI__c</members>
 		<members>Property__c</members>
 		<members>Result_Subscription__c</members>
+		<members>Similarity_Key_Setting__c</members>
 		<members>Subscription__c</members>
 		<name>CustomObject</name>
 	</types>
@@ -61,13 +177,14 @@
 		<name>CustomPermission</name>
 	</types>
 	<types>
+		<members>Lmr_Metric__c</members>
 		<members>Property_SalesAI_Administration_Panel</members>
 		<members>Property_SalesAI_History__c</members>
 		<members>Property_SalesAI_Match__c</members>
 		<members>Property_SalesAI__c</members>
+		<members>Property_Sales_AI_Sign_Up</members>
 		<members>Result_Subscription__c</members>
 		<members>Subscription__c</members>
-		<members>Property_Sales_AI_Sign_Up</members>
 		<name>CustomTab</name>
 	</types>
 	<types>
@@ -79,14 +196,18 @@
 		<members>addressFieldsPicker</members>
 		<members>configurationPanel</members>
 		<members>configurationStep</members>
+		<members>confirmationDialog</members>
 		<members>cssConfigurationWizard</members>
 		<members>dataSummaryCard</members>
 		<members>dynamicComboBox</members>
 		<members>header</members>
+		<members>homeGreenButton</members>
 		<members>matchingLogicScheduling</members>
 		<members>progressBar</members>
 		<members>progressIndicator</members>
 		<members>progressRing</members>
+		<members>propertySalesAISignup</members>
+		<members>propertySalesAISignupIndicator</members>
 		<members>propertySalesMatches</members>
 		<members>recordTypePicker</members>
 		<members>statusPicker</members>
@@ -97,6 +218,11 @@
 		<members>Property_SalesAI_Full_User</members>
 		<members>Property_SalesAI_User</members>
 		<name>PermissionSet</name>
+	</types>
+	<types>
+		<members>LeftMainClouds</members>
+		<members>LeftMainLogo</members>
+		<name>StaticResource</name>
 	</types>
 	<version>62.0</version>
 </Package>

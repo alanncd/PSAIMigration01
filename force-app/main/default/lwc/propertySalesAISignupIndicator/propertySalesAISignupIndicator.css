@@ -1,0 +1,10 @@
+:host {
+    --slds-g-color-success-base-50: #3A5C3B;
+    --slds-g-color-brand-base-50: #3A5C3B;
+
+}
+
+.slds-progress__item.slds-is-active .slds-progress__marker {
+    --slds-g-color-brand-base-50: #0176d3;
+
+}

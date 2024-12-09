@@ -196,9 +196,9 @@ public with sharing class Lmg_SimilarityKeyHelper_cls {
                                 'Stack Trace: ' + ex.getStackTraceString();
 
             // Create the error log record
-            Left_Main__ErrorHandlerLmr__c errorLog = new Left_Main__ErrorHandlerLmr__c();
-            errorLog.Left_Main__ProcessName__c = className;
-            errorLog.Left_Main__LogDetail__c = logDetails;
+            ErrorHandlerLmr__c errorLog = new ErrorHandlerLmr__c();
+            errorLog.ProcessName__c = className;
+            errorLog.LogDetail__c = logDetails;
 
             // Insert the log record
             insert errorLog;

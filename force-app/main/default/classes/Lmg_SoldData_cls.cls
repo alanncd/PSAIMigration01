@@ -94,7 +94,7 @@ global with sharing class Lmg_SoldData_cls {
     }
 
     public static ErrorHandlerLmr__c insertErrorHandler(String processName, String logDetail){
-        Left_Main__ErrorHandlerLmr__c errorHanlder = new ErrorHandlerLmr__c();
+        ErrorHandlerLmr__c errorHanlder = new ErrorHandlerLmr__c();
         if (Schema.sObjectType.ErrorHandlerLmr__c.fields.ProcessName__c.isUpdateable() &&
             Schema.sObjectType.ErrorHandlerLmr__c.fields.LogDetail__c.isUpdateable()) {
             errorHanlder.ProcessName__c = processName;

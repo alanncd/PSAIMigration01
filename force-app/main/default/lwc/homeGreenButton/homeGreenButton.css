@@ -1,0 +1,14 @@
+.homeGreenButton {
+    --slds-c-button-color-background: #93C01A;
+    --slds-c-button-color-border: #93C01A;
+    --slds-c-button-text-color: #2F4B30;
+    font-weight: bold; /* Bold text */
+}
+
+/* Additional styles for the big button */
+.bigButton {
+    padding: 0.7rem 1.57rem; /* Increase padding for larger button */
+    font-size: 1.5rem; /* Larger font size */
+    height: auto; /* Adjust height dynamically */
+    
+}
