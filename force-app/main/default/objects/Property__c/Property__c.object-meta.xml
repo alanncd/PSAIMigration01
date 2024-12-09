@@ -155,8 +155,9 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Property</label>
     <nameField>
+        <displayFormat>P-{0000}</displayFormat>
         <label>Property Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Properties</pluralLabel>
     <searchLayouts></searchLayouts>

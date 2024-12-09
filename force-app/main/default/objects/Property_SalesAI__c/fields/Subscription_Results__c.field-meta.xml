@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Subscription_Results__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Subscription Results</label>
     <referenceTo>Result_Subscription__c</referenceTo>
     <relationshipLabel>Properties Sales</relationshipLabel>

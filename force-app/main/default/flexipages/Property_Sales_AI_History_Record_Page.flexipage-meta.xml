@@ -258,7 +258,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>propertySalesMatches</componentName>
-                <identifier>lmgbeta_propertySalesMatches</identifier>
+                <identifier>c_propertySalesMatches</identifier>
                 <visibilityRule>
                     <booleanFilter>(1 OR 2) AND 3</booleanFilter>
                     <criteria>

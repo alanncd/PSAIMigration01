@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Property_SalesAI__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Property Sales.AI</label>
     <referenceTo>Property_SalesAI__c</referenceTo>
     <relationshipName>Properties_Sales_Matches</relationshipName>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Updated_Leads__c</fullName>
-    <externalId>false</externalId>
     <label>Updated Leads</label>
     <summaryFilterItems>
         <field>Property_SalesAI_Match__c.Status__c</field>

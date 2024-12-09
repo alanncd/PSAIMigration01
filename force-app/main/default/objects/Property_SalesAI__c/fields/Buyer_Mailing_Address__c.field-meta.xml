@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Buyer_Mailing_Address__c</fullName>
     <description>This is the address of the buyer of the sold property</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the address of the buyer of the sold property</inlineHelpText>
     <label>Buyer Mailing Address</label>
     <required>false</required>

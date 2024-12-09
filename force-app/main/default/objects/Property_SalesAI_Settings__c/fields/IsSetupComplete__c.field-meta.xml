@@ -3,7 +3,6 @@
     <fullName>IsSetupComplete__c</fullName>
     <defaultValue>false</defaultValue>
     <description>A boolean that is set to true only when the required fields above are populated by the UX</description>
-    <externalId>false</externalId>
     <label>IsSetupComplete</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
