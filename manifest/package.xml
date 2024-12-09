@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<!--members>ConfigurationController</members>
+		<members>ConfigurationController</members>
 		<members>ConfigurationControllerTest</members>
 		<members>LeadAndOppMatchingBatch</members>
 		<members>LeadAndOppMatchingBatchHelper</members>
 		<members>LeadAndOppMatchingBatchTest</members>
-		<members>LeadAndOppMatchingScheduler</members-->
+		<members>LeadAndOppMatchingScheduler</members>
 		<members>Lmg_AddressKeyIntegration_cls</members>
 		<members>Lmg_AddressKey_Test</members>
 		<members>Lmg_SimilarityKeyHelper_cls</members>
 		<members>Lmg_SimilarityKey_Bth</members>
-		<!--members>Lmg_SoldData_bch</members>
+		<members>Lmg_SoldData_bch</members>
 		<members>Lmg_SoldData_cls</members>
 		<members>Lmg_SoldData_tst</members>
 		<members>Lmg_Utilities_cls</members>
 		<members>PropertySalesAIMatchTriggerHandler</members>
 		<members>PropertySalesAIMatchTriggerHandlerTest</members>
 		<members>PropertySalesController</members>
-		<members>PropertySalesControllerTest</members-->
+		<members>PropertySalesControllerTest</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
@@ -47,13 +47,13 @@
 	<types>
 		<members>Left_Main_Sold_Data_Setting__mdt</members>
 		<members>Lmr_Metric__c</members>
-		<!--members>Property_SalesAI_History__c</members>
+		<members>Property_SalesAI_History__c</members>
 		<members>Property_SalesAI_Match__c</members>
 		<members>Property_SalesAI_Settings__c</members>
 		<members>Property_SalesAI__c</members>
 		<members>Property__c</members>
 		<members>Result_Subscription__c</members>
-		<members>Subscription__c</members-->
+		<members>Subscription__c</members>
 		<name>CustomObject</name>
 	</types>
 	<types>
@@ -61,12 +61,12 @@
 		<name>CustomPermission</name>
 	</types>
 	<types>
-		<!--members>Property_SalesAI_Administration_Panel</members>
+		<members>Property_SalesAI_Administration_Panel</members>
 		<members>Property_SalesAI_History__c</members>
 		<members>Property_SalesAI_Match__c</members>
 		<members>Property_SalesAI__c</members>
 		<members>Result_Subscription__c</members>
-		<members>Subscription__c</members-->
+		<members>Subscription__c</members>
 		<members>Property_Sales_AI_Sign_Up</members>
 		<name>CustomTab</name>
 	</types>
@@ -75,7 +75,7 @@
 		<members>Property_Sales_AI_UtilityBar</members>
 		<name>FlexiPage</name>
 	</types>
-	<!--types>
+	<types>
 		<members>addressFieldsPicker</members>
 		<members>configurationPanel</members>
 		<members>configurationStep</members>
@@ -97,6 +97,6 @@
 		<members>Property_SalesAI_Full_User</members>
 		<members>Property_SalesAI_User</members>
 		<name>PermissionSet</name>
-	</types-->
+	</types>
 	<version>62.0</version>
 </Package>
