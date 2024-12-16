@@ -26,6 +26,10 @@
     </classAccesses>
     <customMetadataTypeAccesses>
         <enabled>true</enabled>
+        <name>Left_Main_SimilarityKey_Setting__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
         <name>Left_Main_Sold_Data_Setting__mdt</name>
     </customMetadataTypeAccesses>
     <customPermissions>
@@ -35,6 +39,10 @@
     <customSettingAccesses>
         <enabled>true</enabled>
         <name>Property_SalesAI_Settings__c</name>
+    </customSettingAccesses>
+    <customSettingAccesses>
+        <enabled>true</enabled>
+        <name>Similarity_Key_Setting__c</name>
     </customSettingAccesses>
     <fieldPermissions>
         <editable>true</editable>
@@ -309,11 +317,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Property_SalesAI__c.Job_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Property_SalesAI__c.LFID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

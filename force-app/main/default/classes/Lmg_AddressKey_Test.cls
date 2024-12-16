@@ -159,5 +159,27 @@ public class Lmg_AddressKey_Test {
                 System.assertNotEquals(null, ct, 'The scheduled job should exist.'); 
             }
     	}
+
+            /**
+     * @description Test to validate the creation of a default custom setting.
+     */
+    @isTest
+    static void testCreateCustomSettingDefault_NewRecord() {
+        // Ensure no default custom setting exists
+        delete [SELECT Id FROM Similarity_Key_Setting__c];
+        
+        Test.startTest();
+        // Call the method
+        Lmg_SimilarityKeyHelper_cls.createCustomSettingDefault();
+        Test.stopTest();
+        
+        // Verify a default record is created with correct values
+        Similarity_Key_Setting__c customSettings = Similarity_Key_Setting__c.getOrgDefaults();
+        System.assertNotEquals(null, customSettings, 'Custom settings should be created.');
+        System.assertEquals(100, customSettings.Size_Lead__c, 'Size_Lead__c should be set to 100.');
+        System.assertEquals(100, customSettings.Size_Properties__c, 'Size_Properties__c should be set to 100.');
+        System.assertEquals(100, customSettings.Size_Opportunity__c, 'Size_Opportunity__c should be set to 100.');
+    }
+
     
 }

@@ -139,8 +139,9 @@ public with sharing class ConfigurationController {
             if (Schema.sObjectType.Property_SalesAI_Settings__c.isUpdateable() && Schema.sObjectType.Property_SalesAI_Settings__c.isCreateable()) {
                 upsert settings;
                 String cronExp = getCronExpressionFromDay(settings.Matching_Day__c);
-                System.schedule('Matching logic weekly run', cronExp, new LeadAndOppMatchingScheduler());    
+                System.schedule('Matching logic weekly run', cronExp, new LeadAndOppMatchingScheduler());
                	Lmg_AddressKeyIntegration_cls.scheduleNightlyBatch();
+               	Lmg_SimilarityKeyHelper_cls.createCustomSettingDefault();
 
             } else {
                 Exception ex = new AuraHandledException('No access to modify custom setting');

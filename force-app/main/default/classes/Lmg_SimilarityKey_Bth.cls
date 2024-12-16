@@ -8,6 +8,7 @@ public with sharing class Lmg_SimilarityKey_Bth implements Database.Batchable<SO
  
     private String objectType;
     private String externalId;
+    private String payloadSimilarity;
 
     private static final String LEAD = 'Lead';
     private static final String OPPORTUNITY = 'Opportunity';
@@ -70,7 +71,7 @@ public with sharing class Lmg_SimilarityKey_Bth implements Database.Batchable<SO
                 }
                 return queryLocatorMap.get(objectType);
             }catch(Exception e){
-                Lmg_SimilarityKeyHelper_cls.logError(e,'Similarity Key Batch: Start','Batch Job','WARNING');
+                Lmg_SimilarityKeyHelper_cls.logError(e,'Similarity Key Batch: Start','Batch Job','WARNING','');
                 Set<Id> emptySet = new Set<Id>();
                 return Database.getQueryLocator([ SELECT Id FROM Account WHERE Id IN :emptySet]);
             }
@@ -86,6 +87,7 @@ public with sharing class Lmg_SimilarityKey_Bth implements Database.Batchable<SO
 
      public void execute(Database.BatchableContext bc, List<SObject> scope) {
         try{
+            payloadSimilarity = ' payload:';
             Left_Main_SimilarityKey_Setting__mdt apiToken = Left_Main_SimilarityKey_Setting__mdt.getInstance('Production');
         // List<SObject> recordsToUpdateFinal = new List<SObject>();
             RecordProcessingContext context = new RecordProcessingContext();
@@ -105,7 +107,7 @@ public with sharing class Lmg_SimilarityKey_Bth implements Database.Batchable<SO
                 performBulkUpdate(context.recordsToUpdate);
             }
         }catch(Exception e){
-            Lmg_SimilarityKeyHelper_cls.logError(e,'Similarity Key Batch','Batch Job','WARNING');
+            Lmg_SimilarityKeyHelper_cls.logError(e,'Similarity Key Batch','Batch Job','WARNING',payloadSimilarity);
         }
     }
     
@@ -124,7 +126,6 @@ public with sharing class Lmg_SimilarityKey_Bth implements Database.Batchable<SO
                 String street = (String) record.get(mapAddressKey.get('Street'));
                 String postalCode = (String) record.get(mapAddressKey.get('PostalCode'));
                 String recordId = (String) record.get('Id');
-        
                 if (String.isBlank(street) || String.isBlank(postalCode)) {
                     continue; // Skip records with missing address data
                 }
@@ -151,7 +152,7 @@ public with sharing class Lmg_SimilarityKey_Bth implements Database.Batchable<SO
     ) {
         recordsToUpdateFinal.clear();
 
-
+        payloadSimilarity = jsonResponse;
         Lmg_AddressKeyIntegration_cls.ApiResponse response =
             (Lmg_AddressKeyIntegration_cls.ApiResponse) JSON.deserialize(jsonResponse, Lmg_AddressKeyIntegration_cls.ApiResponse.class);
     
@@ -246,7 +247,7 @@ public with sharing class Lmg_SimilarityKey_Bth implements Database.Batchable<SO
           Database.executeBatch(new Lmg_SimilarityKey_Bth(PROPERTY_SALES,externalId),sizePropertyBatch);
         }
     }catch (Exception e){
-        Lmg_SimilarityKeyHelper_cls.logError(e,'Similarity Key Batch: '+objectType,'Batch Job','WARNING');
+        Lmg_SimilarityKeyHelper_cls.logError(e,'Similarity Key Batch: '+objectType,'Batch Job','WARNING','');
 
     }
     

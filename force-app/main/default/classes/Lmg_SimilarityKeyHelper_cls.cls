@@ -124,12 +124,11 @@ public with sharing class Lmg_SimilarityKeyHelper_cls {
     
         // Construct the base query
         String query = 'SELECT ' + String.join(fieldsToRetrieve, ', ') +
-                       ' FROM Lead WHERE RecordTypeId IN :recordTypeIds AND Status IN :stagesOrStatuses AND Similarity_Key__c = NULL';
+                       ' FROM Lead WHERE RecordTypeId IN :recordTypeIds AND Status IN :stagesOrStatuses AND Similarity_Key__c = NULL AND isconverted = false';
         // Add duration filter if provided
         if (duration != null && duration != -1) {
             DateTime createdDateFilter = DateTime.now().addDays(-1 * duration);
             query += ' AND LastModifiedDate >= :createdDateFilter';
-
             return Database.getQueryLocator(query);
         }
     
@@ -185,7 +184,7 @@ public with sharing class Lmg_SimilarityKeyHelper_cls {
      * @param methodName The name of the method where the exception occurred.
      * @param severity The severity level (e.g., 'INFO', 'WARNING', 'ERROR').
      */
-    public static void logError(Exception ex, String className, String methodName, String severity) {
+    public static void logError(Exception ex, String className, String methodName, String severity, String additionalMessage) {
         try {
             // Format the log details into a single string
             String logDetails = 'Timestamp: ' + String.valueOf(System.now()) + '\n' +
@@ -198,7 +197,7 @@ public with sharing class Lmg_SimilarityKeyHelper_cls {
             // Create the error log record
             ErrorHandlerLmr__c errorLog = new ErrorHandlerLmr__c();
             errorLog.ProcessName__c = className;
-            errorLog.LogDetail__c = logDetails;
+            errorLog.LogDetail__c = logDetails +'\n' + additionalMessage;
 
             // Insert the log record
             insert errorLog;
@@ -206,6 +205,28 @@ public with sharing class Lmg_SimilarityKeyHelper_cls {
             // Handle logging failure gracefully
             System.debug('Failed to log error: ' + logEx.getMessage());
         }
+    }
+
+    /**
+     * @description Class Helper to create the custom setting.
+     * @throws IllegalArgumentException If the user does not have access to the custom setting object.
+     */
+    public static void createCustomSettingDefault() {
+        Similarity_Key_Setting__c customSettings = Similarity_Key_Setting__c.getOrgDefaults();
+        Map<String, Schema.SObjectField> fieldsMap = Schema.SObjectType.Similarity_Key_Setting__c.fields.getMap();
+
+        if (!Schema.sObjectType.Similarity_Key_Setting__c.isAccessible()) {
+            throw new IllegalArgumentException('No Access to Custom Setting.');
+        }else{
+            if(customSettings.Size_Lead__c == null && fieldsMap.get('Size_Lead__c').getDescribe().isAccessible() && customSettings.Size_Properties__c == null && fieldsMap.get('Size_Properties__c').getDescribe().isAccessible() && customSettings.Size_Opportunity__c == null && fieldsMap.get('Size_Opportunity__c').getDescribe().isAccessible() ){
+                customSettings.Size_Lead__c = 100;
+                customSettings.Size_Properties__c = 100;
+                customSettings.Size_Opportunity__c = 100;
+                insert customSettings;
+            }
+
+        }
+
     }
 
 }

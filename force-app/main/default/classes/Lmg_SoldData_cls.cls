@@ -1,9 +1,18 @@
-@RestResource(urlMapping='/LmgPilot/*')
+@RestResource(urlMapping='/psai/*')
 global with sharing class Lmg_SoldData_cls {
+    
  @HttpPost
     global static void receiveData() {
-        Result_Subscription__c newResultSubscription = new Result_Subscription__c();
         String bodyReceived = RestContext.request.requestBody.toString();
+
+        if (String.isBlank(bodyReceived)) {
+            RestContext.response.statusCode = 400;
+            RestContext.response.responseBody = Blob.valueOf('{"error": "Body Empty."}');
+            insert as user insertErrorHandler('Sold Data Issue','Body Empty.');
+            return;
+        }
+
+        Result_Subscription__c newResultSubscription = new Result_Subscription__c();
         Left_Main_Sold_Data_Setting__mdt metadataRecord = [SELECT Api_Token__c FROM Left_Main_Sold_Data_Setting__mdt WHERE DeveloperName = 'Connection1' WITH SECURITY_ENFORCED LIMIT 1];
         String validToken = metadataRecord.Api_Token__c;
        try{
@@ -70,9 +79,6 @@ global with sharing class Lmg_SoldData_cls {
             }
         }
 
-        // Relate file with the record
-       // Lmg_Utilities_cls.generateFileAndRelate(newResultSubscription.Id,bodyReceived);
-
         RestContext.response.statusCode = 400; // Bad Request
         RestContext.response.responseBody = Blob.valueOf('{"error": "Bad Request: ' + e.getMessage() + '"}');
         System.debug('number: '+e.getLineNumber());
@@ -80,7 +86,7 @@ global with sharing class Lmg_SoldData_cls {
             ErrorHandlerLmr__c transactionLog = new ErrorHandlerLmr__c  (
                 LogDetail__c = e.getStackTraceString() +';'+ '<br/> <strong> Mensaje es: </strong>'+e.getMessage() +';'
                 + '<br/>'+ e.getCause() +';'+ '<br/>'+ e.getTypeName() +';'+ '<br/>' +'Linea es: '+ e.getLineNumber(),
-                ProcessName__c  = 'LeadFuzion'
+                ProcessName__c  = 'Property Sales AI'
             );
             if (Schema.sObjectType.ErrorHandlerLmr__c.isCreateable()) {
                 insert as user transactionLog;
