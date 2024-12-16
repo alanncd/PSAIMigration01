@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>LMAcademyIconPSAI</members>
+		<name>ContentAsset</name>
+	</types>
+	<types>
+		<members>Property_SalesAI</members>
+		<name>CustomApplication</name>
+	</types>
+	<types>
+		<members>Market_Insights</members>
+		<name>CustomTab</name>
+	</types>
+	<version>62.0</version>
+</Package>

@@ -33,7 +33,7 @@
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>FK_$Lead.Left_Main__Asking_Price__c</field>
+        <field>FK_$Lead.Asking_Price__c</field>
     </columns>
     <columns>
         <field>FK_LEAD_LAST_ACTIVITY</field>
@@ -57,7 +57,7 @@
     </groupingsDown>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>FK_$Lead.Left_Main__Campaign1__c</field>
+        <field>FK_$Lead.Campaign1__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Average Sales Price of Lost Leads</name>

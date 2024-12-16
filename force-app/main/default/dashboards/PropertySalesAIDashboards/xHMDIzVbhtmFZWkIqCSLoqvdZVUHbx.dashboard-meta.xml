@@ -183,7 +183,7 @@
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
                 <groupingColumn>FK_NAME</groupingColumn>
-                <groupingColumn>FK_$Opportunity.Left_Main__Last_Offer_Made__c</groupingColumn>
+                <groupingColumn>FK_$Opportunity.Last_Offer_Made__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -373,7 +373,7 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Property Sales.AI Matches</header>
+                <header>Property Sales AI Matches</header>
                 <indicatorBreakpoint1>1.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>2.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
@@ -398,7 +398,7 @@
                 <decimalPrecision>0</decimalPrecision>
                 <displayUnits>Integer</displayUnits>
                 <groupingSortProperties/>
-                <header>Property Sales.AI Imports</header>
+                <header>Property Sales AI Imports</header>
                 <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
@@ -467,8 +467,8 @@
     </dashboardGridLayout>
     <dashboardType>SpecifiedUser</dashboardType>
     <isGridLayout>true</isGridLayout>
-    <owner>technology@leftmainrei.com.propertysalesint</owner>
-    <runningUser>technology@leftmainrei.com.propertysalesint</runningUser>
+    <owner>testrenee@leftmainrei.com</owner>
+    <runningUser>testrenee@leftmainrei.com</runningUser>
     <textColor>#000000</textColor>
     <title>Market Insights</title>
     <titleColor>#000000</titleColor>

@@ -10,20 +10,20 @@
         <field>FK_PC_LAST_NAME</field>
     </columns>
     <columns>
-        <field>FK_$Opportunity.Left_Main__Street__c</field>
+        <field>FK_$Opportunity.Street__c</field>
     </columns>
     <columns>
-        <field>FK_$Opportunity.Left_Main__City__c</field>
+        <field>FK_$Opportunity.City__c</field>
     </columns>
     <columns>
-        <field>FK_$Opportunity.Left_Main__State__c</field>
+        <field>FK_$Opportunity.State__c</field>
     </columns>
     <columns>
-        <field>FK_$Opportunity.Left_Main__Zipcode__c</field>
+        <field>FK_$Opportunity.Zipcode__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>FK_$Opportunity.Left_Main__Asking_Price__c</field>
+        <field>FK_$Opportunity.Asking_Price__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
@@ -46,7 +46,6 @@
             <operator>equals</operator>
             <value>LAST_N_DAYS:30</value>
         </criteriaItems>
-        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

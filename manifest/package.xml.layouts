@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>Property_SalesAI_History__c-Property Sales%2EAI History Layout</members>
+		<members>Property_SalesAI_Match__c-Property Sales%2EAI Match Layout</members>
+		<members>Property_SalesAI__c-Property Sale Layout</members>
+		<name>Layout</name>
+	</types>
+	<version>62.0</version>
+</Package>

@@ -15,7 +15,7 @@
         <field>Property_SalesAI_Match__c.Recording_Date__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Property Sales.AI Matches</name>
+    <name>Property Sales AI Matches</name>
     <params>
         <name>co</name>
         <value>1</value>

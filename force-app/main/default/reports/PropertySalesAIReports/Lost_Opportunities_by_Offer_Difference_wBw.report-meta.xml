@@ -5,11 +5,11 @@
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>FK_$Opportunity.Left_Main__Asking_Price__c</field>
+        <field>FK_$Opportunity.Asking_Price__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>FK_$Opportunity.Left_Main__Last_Offer_Made__c</field>
+        <field>FK_$Opportunity.Last_Offer_Made__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
@@ -32,7 +32,7 @@
         <field>CHILD_NAME</field>
     </columns>
     <customDetailFormulas>
-        <calculatedFormula>Property_SalesAI_Match__c.Sales_Price__c-FK_Opportunity.Left_Main__Last_Offer_Made__c</calculatedFormula>
+        <calculatedFormula>Property_SalesAI_Match__c.Sales_Price__c-FK_Opportunity.Last_Offer_Made__c</calculatedFormula>
         <dataType>Double</dataType>
         <developerName>CDF1</developerName>
         <label>Offer Difference</label>
@@ -46,7 +46,6 @@
             <operator>equals</operator>
             <value>LAST_N_DAYS:30</value>
         </criteriaItems>
-        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

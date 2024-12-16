@@ -17,7 +17,7 @@
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>FK_$Lead.Left_Main__Asking_Price__c</field>
+        <field>FK_$Lead.Asking_Price__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
@@ -40,7 +40,6 @@
             <operator>equals</operator>
             <value>LAST_N_DAYS:30</value>
         </criteriaItems>
-        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -55,7 +54,7 @@
     </groupingsDown>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>FK_$Lead.Left_Main__Campaign1__c</field>
+        <field>FK_$Lead.Campaign1__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Lost Leads by Lead Source/Campaign</name>
